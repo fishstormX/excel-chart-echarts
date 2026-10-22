@@ -1,0 +1,5 @@
+export { convertXlsx } from "./converter.js";
+export type { ChartResult, ConvertResult, Input } from "./converter.js";
+export { prepare, fmtNumber, fmtDate, renderers, registerMaps } from "./runtime.js";
+export { norm as geoNorm, match as geoMatch } from "./geo.js";
+export const VERSION = "1.1.1";

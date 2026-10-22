@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>API &amp; SDK – xlsx2echarts | Excel charts to ECharts</title>
+  <meta name="description" content="REST API, Python SDK and CLI for converting native Excel charts (.xlsx DrawingML) into Apache ECharts option JSON." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://jev.fishmaple.cn/excelECharts/api.html" />
+  <link rel="alternate" hreflang="en" href="https://jev.fishmaple.cn/excelECharts/api.html?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://jev.fishmaple.cn/excelECharts/api.html?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://jev.fishmaple.cn/excelECharts/api.html" />
+  <meta property="og:title" content="API & SDK – xlsx2echarts" />
+  <meta property="og:description" content="REST API, Python SDK and CLI for converting native Excel charts into Apache ECharts option JSON." />
+  <link rel="stylesheet" href="style.css" />
+  <script src="i18n.js"></script>
+</head>
+<body data-title-key="apiTitle" data-desc-key="apiDesc">
+<div class="wrap doc">
+  <div class="topbar">
+    <h1><a href="./" style="color:inherit;text-decoration:none">xlsx2echarts</a> <span class="badge ver">v1.1.1</span></h1>
+    <nav class="links"><a href="./">← Web</a><a href="api/docs">Swagger</a><button type="button" class="btn ghost small" data-lang-toggle data-i18n="langBtn">中文</button></nav>
+  </div>
+  <section class="panel notice" data-i18n-html="notice"></section>
+
+  <div data-lang-only="en">
+  <h2 id="api">REST API</h2>
+  <p>Base URL: <code>https://jev.fishmaple.cn/excelECharts</code> · OpenAPI: <a href="api/openapi.json">api/openapi.json</a> · <a href="api/docs">Swagger UI</a></p>
+  <table>
+    <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+    <tr><td>GET</td><td><code>/api/v1/health</code></td><td>version, max upload, rate limits</td></tr>
+    <tr><td>POST</td><td><code>/api/v1/convert</code></td><td>multipart <code>file</code> (.xlsx/.xlsm, ≤10 MB); optional <code>show_missing_axes=true</code>; optional <code>geojson</code> file (GeoJSON FeatureCollection for filled maps)</td></tr>
+  </table>
+  <pre><code>curl -s -F file=@book.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert</code></pre>
+  <pre><code>{
+  "ok": true, "version": "1.1.1", "filename": "book.xlsx", "sheets": ["Sheet1"],
+  "evaluatedFormulas": 0, "warnings": [],
+  "charts": [{
+    "index": 0, "id": "chart1", "part": "xl/charts/chart1.xml",
+    "sheet": "Sheet1", "anchor": "F2:P20", "name": "Chart 1", "title": "Sales",
+    "width": 640, "height": 360, "types": ["barChart", "lineChart"], "warnings": [],
+    "option": { "title": {...}, "legend": {...}, "xAxis": {...}, "yAxis": [...], "series": [...],
+                "x-numFmt": [{"path": "yAxis.1.axisLabel", "formatCode": "0%"}] }
+  }]
+}</code></pre>
+  <p><b>Errors</b> — <code>{"ok":false,"error":{"code","message"}}</code>: 400 EMPTY_FILE · 413 FILE_TOO_LARGE · 415 NOT_XLSX · 422 CONVERT_FAILED · 429 RATE_LIMITED (Retry-After) · 504 TIMEOUT.</p>
+  <p><b><code>x-numFmt</code></b>: ECharts JSON cannot contain functions, so Excel number formats (e.g. <code>0%</code>, <code>#,##0.00</code>, dates) are listed as hooks. Load <a href="x2e-runtime.js">x2e-runtime.js</a> and call <code>chart.setOption(X2E.prepare(option))</code>, or just delete the key. <code>prepare()</code> also attaches <code>renderItem</code> to custom series marked <code>"x-renderItem"</code> (error bars, box &amp; whisker means/outliers/points).</p>
+
+  <h2 id="sdk">SDK — TypeScript / JavaScript (primary)</h2>
+  <p>npm package <code>excel-echarts</code> — zero runtime dependencies, works in Node ≥18 and modern browsers (own ZIP reader + XML parser; inflate via <code>node:zlib</code> or <code>DecompressionStream</code>). Not on the npm registry yet; install the tarball:</p>
+  <pre><code>npm i https://jev.fishmaple.cn/excelECharts/dl/excel-echarts-1.1.1.tgz
+
+import { convertXlsx, prepare } from "excel-echarts";
+const { charts } = await convertXlsx("book.xlsx");      // Node: path | Uint8Array | ArrayBuffer | Blob
+echarts.init(el).setOption(prepare(charts[0].option));    // prepare() applies x-numFmt formatters</code></pre>
+  <p>Browser without a bundler: <code>&lt;script src="https://jev.fishmaple.cn/excelECharts/excel-echarts.browser.js"&gt;&lt;/script&gt;</code> → <code>await ExcelECharts.convertXlsx(await file.arrayBuffer())</code>. ES module: <a href="dl/excel-echarts.esm.js">dl/excel-echarts.esm.js</a>.</p>
+  <h2 id="sdk-py">SDK — Python</h2>
+  <p>Same behaviour and byte-identical JSON (checked by a parity test). Pure stdlib (zipfile + xml.etree), Python ≥3.8.</p>
+  <pre><code>pip install https://jev.fishmaple.cn/excelECharts/dl/excel_echarts-1.1.1-py3-none-any.whl
+from xlsx2echarts import convert_xlsx
+res = convert_xlsx("book.xlsx")          # path, bytes or file object
+for c in res["charts"]:
+    print(c["sheet"], c["anchor"], c["title"], c["types"])
+    option = c["option"]</code></pre>
+  <p>Calling the public API from Python:</p>
+  <pre><code>import requests
+r = requests.post("https://jev.fishmaple.cn/excelECharts/api/v1/convert", files={"file": open("book.xlsx", "rb")})
+charts = r.json()["charts"]</code></pre>
+  <p>JavaScript:</p>
+  <pre><code>const fd = new FormData(); fd.append("file", fileInput.files[0]);
+const j = await (await fetch("https://jev.fishmaple.cn/excelECharts/api/v1/convert", {method: "POST", body: fd})).json();
+echarts.init(el).setOption(X2E.prepare(j.charts[0].option));</code></pre>
+
+  <h2 id="cli">CLI</h2>
+  <p>Node: <code>excel-echarts</code> (alias <code>xlsx2echarts</code>; or <code>npx excel-echarts</code> after installing). Python: <code>xlsx2echarts</code> / <code>excel-echarts</code> / <code>python -m xlsx2echarts</code>. Same flags and output layout.</p>
+  <pre><code>excel-echarts book.xlsx -o out/            # out/&lt;sheet&gt;_chartN.json + index.json + preview.html
+excel-echarts a.xlsx b.xlsx ./folder -o out/  # several files → out/&lt;file&gt;/...
+excel-echarts book.xlsx --stdout            # print JSON
+excel-echarts book.xlsx --show-missing-axes # show axes Excel hides</code></pre>
+  <p><code>preview.html</code> renders every chart with a locally vendored <code>echarts.min.js</code> (no CDN).</p>
+
+  <h2 id="mapping">Mapping</h2>
+  <table>
+    <tr><th>Excel (DrawingML)</th><th>ECharts</th></tr>
+    <tr><td>barChart / bar3DChart, barDir col|bar</td><td>series.type bar; bar → category on yAxis</td></tr>
+    <tr><td>grouping clustered / stacked / percentStacked</td><td>— / series.stack / stack + values normalised to %, axis 0–100%</td></tr>
+    <tr><td>gapWidth, overlap</td><td>barCategoryGap, barGap</td></tr>
+    <tr><td>lineChart (marker, smooth, stacked)</td><td>line, symbol / showSymbol, smooth, stack</td></tr>
+    <tr><td>areaChart</td><td>line + areaStyle (stack when stacked)</td></tr>
+    <tr><td>pieChart / doughnutChart (holeSize, firstSliceAng, explosion)</td><td>pie, radius [inner, outer], startAngle, selected</td></tr>
+    <tr><td>scatterChart (scatterStyle, ln noFill)</td><td>scatter (markers) or line on value axis</td></tr>
+    <tr><td>bubbleChart</td><td>scatter with per-point symbolSize</td></tr>
+    <tr><td>radarChart (marker/filled)</td><td>radar + indicator</td></tr>
+    <tr><td>several chart groups in one plotArea</td><td>combo series; axId → xAxisIndex / yAxisIndex (secondary axis right)</td></tr>
+    <tr><td>dateAx</td><td>category with formatted dates, or time axis for uneven dates</td></tr>
+    <tr><td>title, legend legendPos, axis title / min / max / majorUnit / logBase / orientation, gridlines</td><td>title, legend, axis name / min / max / interval / log / inverse, splitLine</td></tr>
+    <tr><td>dLbls showVal / showPercent / showCatName / showSerName, dLblPos</td><td>label.formatter {c} {d}% {b} {a}, label.position</td></tr>
+    <tr><td>spPr solidFill srgbClr / schemeClr (+lumMod/lumOff/tint/shade), dPt</td><td>itemStyle.color (theme resolved), per-point colours</td></tr>
+  </table>
+  </div>
+
+  <div data-lang-only="zh" hidden>
+  <h2 id="api-zh">REST API</h2>
+  <p>基础地址：<code>https://jev.fishmaple.cn/excelECharts</code> · OpenAPI：<a href="api/openapi.json">api/openapi.json</a> · <a href="api/docs">Swagger UI</a></p>
+  <table>
+    <tr><th>方法</th><th>路径</th><th>说明</th></tr>
+    <tr><td>GET</td><td><code>/api/v1/health</code></td><td>版本、上传上限、限流规则</td></tr>
+    <tr><td>POST</td><td><code>/api/v1/convert</code></td><td>multipart 字段 <code>file</code>（.xlsx/.xlsm，≤10 MB）；可选 <code>show_missing_axes=true</code>；可选 <code>geojson</code> 文件（着色地图用的 GeoJSON FeatureCollection）</td></tr>
+  </table>
+  <pre><code>curl -s -F file=@表格.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert</code></pre>
+  <p>返回 <code>charts[]</code>，每项含 <code>sheet</code>（所在工作表）、<code>anchor</code>（覆盖的单元格区域）、<code>title</code>、<code>types</code>（Excel 图表组）、<code>warnings</code> 和 <code>option</code>（ECharts 配置）。</p>
+  <p><b>错误</b>：<code>{"ok":false,"error":{"code","message"}}</code>；400 空文件 · 413 文件过大 · 415 不是 xlsx · 422 解析失败 · 429 限流（带 Retry-After）· 504 超时。</p>
+  <p><b><code>x-numFmt</code></b>：ECharts JSON 里不能放函数，所以 Excel 数字格式（如 <code>0%</code>、<code>#,##0.00</code>、日期）以钩子形式列出。引入 <a href="x2e-runtime.js">x2e-runtime.js</a> 后 <code>chart.setOption(X2E.prepare(option))</code> 即可，不需要就删掉该字段。<code>prepare()</code> 同时为带 <code>"x-renderItem"</code> 的 custom 系列（误差线、箱形图均值/离群点）挂上 <code>renderItem</code>。</p>
+  <h2 id="sdk-zh">SDK — TypeScript / JavaScript（主实现）</h2>
+  <p>npm 包 <code>excel-echarts</code>：零运行时依赖，Node ≥18 与现代浏览器通用（自带 ZIP 读取与 XML 解析）。尚未发布到 npm，先装 tarball：</p>
+  <pre><code>npm i https://jev.fishmaple.cn/excelECharts/dl/excel-echarts-1.1.1.tgz
+import { convertXlsx, prepare } from "excel-echarts";
+const { charts } = await convertXlsx("表格.xlsx");
+echarts.init(el).setOption(prepare(charts[0].option));</code></pre>
+  <p>浏览器直接引用：<code>&lt;script src="https://jev.fishmaple.cn/excelECharts/excel-echarts.browser.js"&gt;</code> → <code>await ExcelECharts.convertXlsx(await file.arrayBuffer())</code>。</p>
+  <h2 id="sdk-py-zh">SDK — Python</h2>
+  <p>行为一致，输出 JSON 与 TS 版完全相同（有对比测试）。只用标准库，Python ≥3.8。</p>
+  <pre><code>pip install https://jev.fishmaple.cn/excelECharts/dl/excel_echarts-1.1.1-py3-none-any.whl
+from xlsx2echarts import convert_xlsx
+res = convert_xlsx("表格.xlsx")
+for c in res["charts"]:
+    print(c["sheet"], c["anchor"], c["title"], c["types"])</code></pre>
+  <h2 id="cli-zh">命令行</h2>
+  <p>Node：<code>excel-echarts</code>（别名 <code>xlsx2echarts</code>）；Python：<code>xlsx2echarts</code> / <code>python -m xlsx2echarts</code>，参数与输出相同。</p>
+  <pre><code>excel-echarts 表格.xlsx -o out/            # 每个图表一个 JSON + index.json + preview.html
+excel-echarts a.xlsx b.xlsx ./目录 -o out/
+excel-echarts 表格.xlsx --stdout
+excel-echarts 表格.xlsx --show-missing-axes # 显示 Excel 会隐藏的坐标轴</code></pre>
+  <p>映射表与已知限制见英文版 <a href="?lang=en#mapping">Mapping</a> 或项目 README（中文）。</p>
+  </div>
+  <footer class="foot" data-i18n-html="foot"></footer>
+</div>
+</body>
+</html>

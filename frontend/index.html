@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Excel Chart to ECharts Converter – xlsx to ECharts option JSON | xlsx2echarts</title>
+  <meta name="description" content="Free online converter: upload an .xlsx and turn every native Excel chart (bar, line, area, pie, doughnut, scatter, radar, bubble, combo, secondary axis) into an Apache ECharts option JSON. Files are never stored." />
+  <meta name="keywords" content="excel to echarts, xlsx to echarts, excel chart converter, echarts option, OOXML chart, DrawingML, Excel 图表转 ECharts, xlsx 转 echarts, 图表转换, ECharts 配置生成" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://jev.fishmaple.cn/excelECharts/" />
+  <link rel="alternate" hreflang="en" href="https://jev.fishmaple.cn/excelECharts/?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://jev.fishmaple.cn/excelECharts/?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://jev.fishmaple.cn/excelECharts/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="xlsx2echarts" />
+  <meta property="og:title" content="Excel Chart to ECharts Converter – xlsx to ECharts option JSON | xlsx2echarts" />
+  <meta property="og:description" content="Free online converter: upload an .xlsx and turn every native Excel chart into an Apache ECharts option JSON. Files are never stored." />
+  <meta property="og:url" content="https://jev.fishmaple.cn/excelECharts/" />
+  <meta property="og:locale" content="en_US" /><meta property="og:locale:alternate" content="zh_CN" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Excel Chart to ECharts Converter | xlsx2echarts" />
+  <meta name="twitter:description" content="Upload an .xlsx and turn every native Excel chart into an Apache ECharts option JSON." />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"xlsx2echarts","url":"https://jev.fishmaple.cn/excelECharts/","applicationCategory":"DeveloperApplication","operatingSystem":"Any (web browser)","description":"Convert native Excel charts in .xlsx files into Apache ECharts option JSON. 把 Excel 原生图表转换为 ECharts option。","inLanguage":["en","zh-CN"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"softwareVersion":"1.1.1","featureList":["Excel chart to ECharts","Combo charts and secondary axes","Theme colour resolution","Formula recalculation for uncached values","Office 2016 waterfall, treemap, sunburst, histogram, pareto, funnel, box & whisker","Error bars and trendlines","Filled maps (regionMap) with bundled world / China GeoJSON","Files never stored"]}</script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="i18n.js"></script>
+  <script src="echarts.min.js" defer></script>
+  <script src="excel-echarts.browser.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="topbar">
+        <h1><span data-i18n="h1">xlsx2echarts — Excel charts → ECharts</span> <span class="badge ver">v1.1.1</span></h1>
+        <nav class="links">
+          <a href="api.html#cli" data-i18n="navCli">CLI</a>
+          <a href="api.html#sdk" data-i18n="navSdk">SDK</a>
+          <a href="api.html" data-i18n="navApi">API</a>
+          <button type="button" class="btn ghost small" data-lang-toggle data-i18n="langBtn">中文</button>
+        </nav>
+      </div>
+      <p class="sub" data-i18n="sub"></p>
+      <noscript><h2>Excel chart to ECharts converter</h2><p>Upload an .xlsx and convert every native Excel chart into an Apache ECharts option JSON. Files are never stored.</p><p>上传 .xlsx，把 Excel 原生图表转换成 ECharts option JSON，文件不保存。</p><p>JavaScript is required.</p></noscript>
+    </header>
+
+    <section class="entry-grid" aria-label="CLI SDK API">
+      <a class="entry-card" id="entry-cli" href="api.html#cli">
+        <div class="entry-icon">🖥️</div><h3 data-i18n="entryCliTitle">CLI</h3>
+        <p data-i18n="entryCliDesc"></p><code class="entry-ex" data-i18n="entryCliEx">excel-echarts book.xlsx -o out/</code>
+      </a>
+      <a class="entry-card" id="entry-sdk" href="api.html#sdk">
+        <div class="entry-icon">📦</div><h3 data-i18n="entrySdkTitle">SDK</h3>
+        <p data-i18n="entrySdkDesc"></p><code class="entry-ex" data-i18n="entrySdkEx">import { convertXlsx } from "excel-echarts"</code>
+      </a>
+      <a class="entry-card" id="entry-api" href="api.html">
+        <div class="entry-icon">🔌</div><h3 data-i18n="entryApiTitle">API</h3>
+        <p data-i18n="entryApiDesc"></p><code class="entry-ex" data-i18n="entryApiEx">POST /api/v1/convert</code>
+      </a>
+    </section>
+
+    <section class="panel agent-box" id="use-with-agent">
+      <div class="agent-head">
+        <h3 data-i18n="agentTitle">Use with an Agent</h3>
+        <button type="button" class="btn ghost small" id="btnCopyAgent" data-i18n="agentCopy">Copy prompt</button>
+      </div>
+      <p class="agent-hint" data-i18n="agentHint"></p>
+      <pre class="agent-prompt" id="agentPrompt" data-lang-only="en"></pre>
+      <pre class="agent-prompt" id="agentPromptZh" data-lang-only="zh" hidden></pre>
+    </section>
+
+    <section class="panel notice" data-i18n-html="notice"></section>
+
+    <section class="panel">
+      <div class="upload">
+        <label class="dropzone" id="drop"><span data-i18n="drop"></span><input type="file" id="file" accept=".xlsx,.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden /></label>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label class="btn primary filebtn" for="file"><span data-i18n="pick"></span></label>
+          <button type="button" class="btn" id="btnSample" data-i18n="sample"></button>
+          <button type="button" class="btn" id="btnSample2" data-i18n="sample2"></button>
+          <button type="button" class="btn" id="btnSample3" data-i18n="sample3"></button>
+          <button type="button" class="btn" id="btnSample4" data-i18n="sample4"></button>
+          <button type="button" class="btn" id="btnSample5" data-i18n="sample5"></button>
+          <button type="button" class="btn" id="btnAll" disabled data-i18n="dlAll"></button>
+        </div>
+      </div>
+      <div class="opts" style="margin-top:10px"><label><input type="checkbox" id="showAxes" /> <span data-i18n="showAxes"></span></label><label><input type="checkbox" id="useApi" /> <span data-i18n="useApi"></span></label><label><span data-i18n="geoLabel"></span> <input type="file" id="geo" accept=".json,.geojson,application/geo+json,application/json" /></label></div>
+      <p class="hint" data-i18n="privacy"></p>
+      <p class="status" id="status" data-i18n="ready"></p>
+    </section>
+
+    <section class="charts" id="charts"></section>
+
+    <section class="panel notes"><h4 data-i18n="howTitle"></h4><div data-i18n-html="how"></div></section>
+    <footer class="foot" data-i18n-html="foot"></footer>
+  </div>
+</body>
+</html>

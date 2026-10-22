@@ -1,0 +1,17 @@
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+dist/*.tgz
+dist/*.whl
+dist/*.tar.gz
+*.xlsx
+*.xlsm
+*.xltx
+fixtures/
+samples/
+screenshots/
+.DS_Store
+*.log

@@ -1,0 +1,26 @@
+[Unit]
+Description=excel-echarts API (xlsx charts -> ECharts options, FastAPI)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/excelECharts
+Environment=PYTHONUNBUFFERED=1
+Environment=X2E_BASE_PATH=/excelECharts
+Environment=X2E_SERVE_UI=0
+Environment=X2E_RATE_LIMITS=3/10s,20/60s
+Environment=X2E_MAX_MB=10
+EnvironmentFile=-/etc/excelECharts/env
+ExecStart=/opt/excelECharts/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8766 --workers 1
+Restart=on-failure
+RestartSec=3
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+MemoryMax=600M
+
+[Install]
+WantedBy=multi-user.target
