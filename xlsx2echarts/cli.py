@@ -1,4 +1,9 @@
-"""xlsx2echarts CLI:  xlsx2echarts book.xlsx -o outdir   (also accepts .xlsm/.xltx/.xltm, several files / a folder)"""
+"""xlsx2echarts CLI:  xlsx2echarts book.xlsx -o outdir   (also accepts .xlsm/.xltx/.xltm, several files / a folder)
+
+Quick JSON only:
+  xlsx2echarts book.xlsx -j                 # print one JSON to stdout
+  xlsx2echarts book.xlsx -j -o out.json     # write one JSON file (no preview / split files)
+"""
 from __future__ import annotations
 
 import argparse
@@ -54,21 +59,58 @@ def write_preview(outdir: Path, charts, title: str, geo_srcs=()):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(prog="xlsx2echarts", description="Convert native Excel charts in .xlsx/.xlsm/.xltx/.xltm to ECharts option JSON")
+    ap = argparse.ArgumentParser(
+        prog="xlsx2echarts",
+        description="Convert native Excel charts in .xlsx/.xlsm/.xltx/.xltm to ECharts option JSON",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="examples:\n"
+               "  xlsx2echarts book.xlsx -j                 # one JSON on stdout\n"
+               "  xlsx2echarts book.xlsx -j -o out.json     # one JSON file\n"
+               "  xlsx2echarts book.xlsx -o out/            # full export + preview.html\n",
+    )
     ap.add_argument("inputs", nargs="+", help=".xlsx / .xlsm / .xltx / .xltm files or folders")
-    ap.add_argument("-o", "--out", default="echarts_out", help="output directory (default ./echarts_out)")
-    ap.add_argument("--no-preview", action="store_true", help="do not write preview.html")
+    ap.add_argument("-o", "--out", default="echarts_out",
+                    help="output directory (full export) or .json path (with -j/--json)")
+    ap.add_argument("-j", "--json", action="store_true",
+                    help="one-shot JSON only: print to stdout, or write -o FILE.json; skip preview and per-chart files")
+    ap.add_argument("--no-preview", action="store_true", help="do not write preview.html (full export only)")
     ap.add_argument("--show-missing-axes", action="store_true",
                     help="show axes that have no <c:delete> element (Excel hides them; LibreOffice shows them)")
-    ap.add_argument("--stdout", action="store_true", help="print the JSON result to stdout instead of writing files")
+    ap.add_argument("--stdout", action="store_true", help=argparse.SUPPRESS)  # alias of --json → stdout
     ap.add_argument("--geojson", metavar="FILE", help="GeoJSON FeatureCollection for regionMap charts (default: bundled China provinces / world countries)")
     ap.add_argument("-V", "--version", action="version", version=f"xlsx2echarts {__version__}")
     a = ap.parse_args(argv)
+    json_only = a.json or a.stdout
     files = []
     for p in map(Path, a.inputs):
         files += sorted(x for x in p.glob(OOXML_GLOB) if not x.name.startswith("~$")) if p.is_dir() else [p]
     out = Path(a.out)
     gj = json.loads(Path(a.geojson).read_text(encoding="utf-8")) if a.geojson else None
+
+    if json_only:
+        results = []
+        rc = 0
+        for f in files:
+            try:
+                res = convert_xlsx(str(f), excel_compat=not a.show_missing_axes, geojson=gj)
+            except Exception as e:
+                print(f"✗ {f}: {e}", file=sys.stderr)
+                rc = 1
+                continue
+            results.append({"file": f.name, **res})
+        if not results and rc:
+            return rc
+        payload = results[0] if len(results) == 1 else {"files": results}
+        text = json.dumps(payload, ensure_ascii=False, indent=2)
+        # -j alone / --stdout → stdout; -j -o PATH → write that file
+        if a.json and a.out != "echarts_out":
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(text + "\n", encoding="utf-8")
+            print(f"✓ JSON → {out}", file=sys.stderr)
+        else:
+            print(text)
+        return rc
+
     allc, index, rc = [], [], 0
     for f in files:
         try:
@@ -76,9 +118,6 @@ def main(argv=None):
         except Exception as e:
             print(f"✗ {f}: {e}", file=sys.stderr)
             rc = 1
-            continue
-        if a.stdout:
-            print(json.dumps({"file": f.name, **res}, ensure_ascii=False, indent=2))
             continue
         sub = out / f.stem if len(files) > 1 else out
         sub.mkdir(parents=True, exist_ok=True)
@@ -96,8 +135,8 @@ def main(argv=None):
         print(f"✓ {f.name}: {len(entries)} chart(s) → {sub}" + (f"  ⚠ {'; '.join(res['warnings'])}" if res["warnings"] else ""))
         if not entries:
             print("  (no native Excel charts found — plain tables are not converted)")
-    geo_srcs = write_geo(out, allc, a.geojson) if not a.stdout and allc else []
-    if not a.stdout and allc and not a.no_preview:
+    geo_srcs = write_geo(out, allc, a.geojson) if allc else []
+    if allc and not a.no_preview:
         write_preview(out, allc, ", ".join(f.name for f in files), geo_srcs)
         print(f"preview: {out / 'preview.html'}")
     return rc

@@ -1,6 +1,6 @@
 /* xlsx2echarts i18n — default follows browser language (zh* → Chinese, else English). ?lang=en|zh overrides; remembered in localStorage. */
 (function () {
-  const VERSION = "1.1.1";
+  const VERSION = "1.0.0";
   const KEY = "x2e.lang";
   const D = {
     en: {
