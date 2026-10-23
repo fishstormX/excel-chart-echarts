@@ -13,5 +13,8 @@ dist/*.tar.gz
 fixtures/
 samples/
 screenshots/
+!docs/screenshots/
+!docs/screenshots/**/
+!docs/screenshots/**
 .DS_Store
 *.log
