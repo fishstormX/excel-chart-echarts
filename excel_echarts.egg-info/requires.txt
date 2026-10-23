@@ -1,5 +1,0 @@
-
-[api]
-fastapi>=0.100
-uvicorn>=0.22
-python-multipart

@@ -1,3 +1,0 @@
-[console_scripts]
-excel-echarts = xlsx2echarts.cli:main
-xlsx2echarts = xlsx2echarts.cli:main

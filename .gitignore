@@ -19,3 +19,8 @@ screenshots/
 .DS_Store
 *.log
 dist/
+
+# setuptools / pack leftovers
+excel_echarts.egg-info/
+*.egg-info/
+ts/*.tgz
