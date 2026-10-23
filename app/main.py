@@ -33,8 +33,8 @@ MAX_BYTES = int(float(os.environ.get("X2E_MAX_MB", "10")) * 1024 * 1024)
 MAX_UNZIPPED = int(float(os.environ.get("X2E_MAX_UNZIPPED_MB", "150")) * 1024 * 1024)
 TIMEOUT = float(os.environ.get("X2E_TIMEOUT_S", "30"))
 CONTACT_EN = ("This API is for testing only. For commercial use or partnership inquiries, contact stormnetwork@163.com "
-              "(海口龙华区妙妙鱼传媒工作室 / Miaomiaoyu Media Studio, Longhua District, Haikou).")
-CONTACT_ZH = "此接口仅供测试使用，如有商业使用或合作意向，请联系 stormnetwork@163.com（海口龙华区妙妙鱼传媒工作室）。"
+              "(妙妙鱼 / fishstormX).")
+CONTACT_ZH = "此接口仅供测试使用，如有商业使用或合作意向，请联系 stormnetwork@163.com（妙妙鱼）。"
 
 app = FastAPI(
     title="xlsx2echarts API", version=__version__,
