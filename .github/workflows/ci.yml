@@ -1,0 +1,120 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: cicd-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Build & test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: ts/package-lock.json
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build TypeScript
+        working-directory: ts
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install Python package + fixture deps
+        run: |
+          python -m pip install -U pip
+          pip install -e .
+          pip install openpyxl xlsxwriter
+
+      - name: Generate fixtures
+        run: |
+          python tests/gen_samples.py fixtures
+          python tests/gen_fixtures_extra.py fixtures
+          python tests/gen_errbars.py fixtures
+          python tests/gen_chartex.py fixtures
+          python tests/gen_maps.py fixtures
+
+      - name: Unit tests (formats)
+        run: python tests/test_formats.py
+
+      - name: Parity (Python ≡ TypeScript)
+        run: python tests/parity.py
+
+  deploy:
+    name: Deploy to jev.fishmaple.cn
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pack deploy payload
+        run: |
+          tar czf /tmp/excelECharts-deploy.tgz \
+            app xlsx2echarts frontend deploy pyproject.toml README.md LICENSE
+          ls -la /tmp/excelECharts-deploy.tgz
+
+      - name: Upload & restart on server
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          SSHPASS: ${{ secrets.DEPLOY_SSH_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [ -z "${HOST:-}" ] || [ -z "${USER:-}" ] || [ -z "${SSHPASS:-}" ]; then
+            echo "Missing DEPLOY_HOST / DEPLOY_USER / DEPLOY_SSH_PASSWORD secrets — skip deploy."
+            exit 1
+          fi
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass openssh-client
+          SSH=(sshpass -e ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=30 "$USER@$HOST")
+          SCP=(sshpass -e scp -o StrictHostKeyChecking=accept-new)
+          "${SCP[@]}" /tmp/excelECharts-deploy.tgz "$USER@$HOST:/tmp/excelECharts-deploy.tgz"
+          "${SSH[@]}" 'set -e
+            mkdir -p /opt/excelECharts /var/www/jev/excelECharts
+            tar xzf /tmp/excelECharts-deploy.tgz -C /tmp
+            # app code
+            rm -rf /tmp/x2e-sync && mkdir -p /tmp/x2e-sync
+            tar xzf /tmp/excelECharts-deploy.tgz -C /tmp/x2e-sync
+            rsync -a --delete \
+              /tmp/x2e-sync/app/ /tmp/x2e-sync/xlsx2echarts/ /tmp/x2e-sync/pyproject.toml \
+              /opt/excelECharts/ 2>/dev/null || true
+            # layout: keep app+package under /opt/excelECharts
+            cp -a /tmp/x2e-sync/app /opt/excelECharts/
+            cp -a /tmp/x2e-sync/xlsx2echarts /opt/excelECharts/
+            cp /tmp/x2e-sync/pyproject.toml /opt/excelECharts/
+            # reinstall editable / refresh venv package
+            if [ -x /opt/excelECharts/venv/bin/pip ]; then
+              /opt/excelECharts/venv/bin/pip install -e /opt/excelECharts -q
+            fi
+            # static frontend (nginx alias)
+            cp -a /tmp/x2e-sync/frontend/. /var/www/jev/excelECharts/
+            chown -R www-data:www-data /opt/excelECharts/app /opt/excelECharts/xlsx2echarts /var/www/jev/excelECharts 2>/dev/null || true
+            systemctl restart excelECharts
+            systemctl is-active excelECharts
+            curl -sf http://127.0.0.1:8766/api/v1/health || curl -sf http://127.0.0.1:8766/excelECharts/api/v1/health || true
+            rm -rf /tmp/excelECharts-deploy.tgz /tmp/x2e-sync
+            echo deploy_ok
+          '

@@ -177,6 +177,7 @@ Env (defaults): `X2E_RATE_LIMITS=3/10s,20/60s`, `X2E_MAX_MB=10`, `X2E_MAX_UNZIPP
 
 | Doc | Contents |
 |---|---|
+| [CI/CD](https://github.com/fishstormX/excel2Echarts/actions/workflows/ci.yml) | Build + parity on `main` / PRs; deploy demo on push to `main` |
 | [GitHub Releases](https://github.com/fishstormX/excel2Echarts/releases) | Packaged `.tgz` (npm) + `.whl` (pip) — built by Actions on `v*` tags |
 | [Architecture](docs/architecture.md) | Pipeline, OOXML mapping, TS/Python parity, hooks |
 | [More examples](docs/more-examples.md) | Extended Excel vs ECharts gallery |
