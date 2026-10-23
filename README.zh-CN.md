@@ -6,7 +6,7 @@
 
 **把 Excel 原生图表转成 Apache ECharts option — TypeScript & Python，运行时零 Excel 依赖，Node + 浏览器。**
 
-开源 DrawingML → ECharts 转换器：一等公民 **CLI**、**SDK**、**REST API**，以及默认本地处理的在线演示。
+开源 DrawingML → ECharts 转换器，自带 **CLI**、**SDK**、**REST API**；网页演示默认在浏览器本地完成，不必上传文件。
 
 [![version](https://img.shields.io/badge/version-1.1.1-3d8bfd)](ts/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -67,7 +67,7 @@ curl -s -F file=@book.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert
 - **TS ≡ Python** — 同一文件输出相同 JSON（`tests/parity.py`）。
 - **Node + 浏览器** — 同一套包。
 - **主题色与数字格式** — `theme1.xml`、标签格式钩子。
-- **隐私优先演示** — 默认浏览器本地转换；API 上传只在内存。
+- **演示偏本地** — 网页默认在浏览器里转；走 API 时上传只在内存，不落盘。
 - **中英界面** — `?lang=zh` / `?lang=en`。
 
 ## 在线演示
@@ -94,9 +94,9 @@ curl -s -F file=@book.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert
 
 更多对比（误差线、多层分类、甘特、MS 模板、chartEx、地图）：**[docs/more-examples.zh-CN.md](docs/more-examples.zh-CN.md)**。
 
-## 覆盖度 · 保真清单
+## 覆盖与对照
 
-项目的「benchmark」定义为：对真实工作簿相对 Excel/WPS 的**视觉保真**，以及 **TS/Python 对等**。
+这里的「效果基准」是：对真实工作簿相对 Excel/WPS 的**观感接近程度**，以及 **TS / Python 输出是否一致**。
 
 | 检查项 | 状态 |
 |---|---|

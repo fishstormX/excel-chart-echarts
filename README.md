@@ -6,7 +6,7 @@
 
 **Convert native Excel charts into Apache ECharts options — TypeScript & Python, zero Excel runtime deps, Node + browser.**
 
-Open-source DrawingML → ECharts converter with a first-class **CLI**, **SDKs**, and **REST API**, plus a privacy-first web demo.
+Open-source DrawingML → ECharts converter with **CLI**, **SDK**, and **REST API** built in, plus a web demo that converts locally by default.
 
 [![version](https://img.shields.io/badge/version-1.1.1-3d8bfd)](ts/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -95,9 +95,9 @@ Left = chart as opened in a spreadsheet (WPS Spreadsheets, English UI). Right = 
 
 More side-by-side cases (error bars, multi-level categories, Gantt, MS templates, chartEx, maps): **[docs/more-examples.md](docs/more-examples.md)**.
 
-## Coverage · fidelity checklist
+## Coverage & fidelity
 
-What we treat as the project “benchmark”: **visual fidelity** against Excel/WPS on real workbooks, plus **cross-implementation parity**.
+What we use as the project benchmark: **visual fidelity** vs Excel/WPS on real workbooks, plus **TypeScript ≡ Python** output.
 
 | Check | Status |
 |---|---|
