@@ -160,7 +160,7 @@ uvicorn app.main:app --port 8765
 
 | 文档 | 内容 |
 |---|---|
-| [CI/CD](https://github.com/fishstormX/excel2Echarts/actions/workflows/ci.yml) | `main` / PR 自动构建与对等测试；推送到 `main` 后部署演示站 |
+| [CI/CD](https://github.com/fishstormX/excel2Echarts/actions/workflows/ci.yml) | `main` / PR 自动构建与对等测试；打 `v*` 标签时打包 npm/wheel 并发 GitHub Release |
 | [GitHub Releases](https://github.com/fishstormX/excel2Echarts/releases) | 打包好的 `.tgz`（npm）+ `.whl`（pip），打 `v*` 标签时由 Actions 自动构建 |
 | [架构说明](docs/architecture.zh-CN.md) | 流水线、OOXML 映射、TS/Python 对等 |
 | [更多样例](docs/more-examples.zh-CN.md) | 扩展对比图库 |
