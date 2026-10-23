@@ -5,12 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "excel-echarts"
 version = "1.1.1"
-description = "Convert native Excel charts (DrawingML in .xlsx) into Apache ECharts options — zero dependencies, SDK + CLI (+ optional HTTP API)"
+description = "Convert native Excel charts (DrawingML in .xlsx/.xlsm/.xltx/.xltm) into Apache ECharts options — zero dependencies, SDK + CLI (+ optional HTTP API)"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [{name = "海口龙华区妙妙鱼传媒工作室", email = "stormnetwork@163.com"}]
-keywords = ["excel", "xlsx", "echarts", "chart", "ooxml", "drawingml"]
+keywords = ["excel", "xlsx", "xlsm", "xltx", "xltm", "echarts", "chart", "ooxml", "drawingml"]
 classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent"]
 dependencies = []
 

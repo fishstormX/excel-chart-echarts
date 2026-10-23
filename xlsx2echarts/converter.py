@@ -1,4 +1,4 @@
-"""Convert DrawingML charts (xl/charts/chartN.xml) inside an .xlsx into ECharts options."""
+"""Convert DrawingML charts (xl/charts/chartN.xml) inside an OOXML workbook (.xlsx/.xlsm/.xltx/.xltm) into ECharts options."""
 from __future__ import annotations
 
 import datetime as _dt
