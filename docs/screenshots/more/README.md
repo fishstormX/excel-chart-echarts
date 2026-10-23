@@ -1,8 +1,3 @@
-# Extra screenshot gallery
+Screenshot assets for the gallery.
 
-Paired Excel/WPS vs excel-echarts shots kept out of the main README to keep it short.
-
-- [`excel/`](excel/) — spreadsheet UI crops
-- [`web/`](web/) — ECharts preview crops
-
-Main README shows two basic examples only: line chart + combo (secondary axis).
+See **[docs/more-examples.md](../../more-examples.md)** (images + captions).
