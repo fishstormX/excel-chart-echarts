@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-/** excel-echarts CLI: excel-echarts book.xlsx -o outdir  (same output layout as the Python CLI) */
+/** excel-echarts CLI: excel-echarts book.xlsx -o outdir  (also .xlsm/.xltx/.xltm; same layout as Python CLI) */
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import { convertXlsx } from "./converter.js";
+import { OOXML_EXT_RE } from "./formats.js";
 import { VERSION } from "./index.js";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -40,7 +41,7 @@ async function main(argv: string[]) {
     else if (x === "--geojson") a.geojson = argv[++i];
     else if (x === "-V" || x === "--version") { console.log(`excel-echarts ${VERSION}`); return 0; }
     else if (x === "-h" || x === "--help") {
-      console.log("usage: excel-echarts [-o OUT] [--no-preview] [--show-missing-axes] [--stdout] [--geojson FILE] inputs...\n\nConvert native Excel charts in .xlsx to ECharts option JSON");
+      console.log("usage: excel-echarts [-o OUT] [--no-preview] [--show-missing-axes] [--stdout] [--geojson FILE] inputs...\n\nConvert native Excel charts in .xlsx/.xlsm/.xltx/.xltm to ECharts option JSON");
       return 0;
     } else a.inputs.push(x);
   }
@@ -48,7 +49,7 @@ async function main(argv: string[]) {
   const files: string[] = [];
   for (const p of a.inputs) {
     const st = await fs.stat(p).catch(() => null);
-    if (st?.isDirectory()) files.push(...(await fs.readdir(p)).filter((n) => /\.xls[xm]$/.test(n) && !n.startsWith("~$")).sort().map((n) => path.join(p, n)));
+    if (st?.isDirectory()) files.push(...(await fs.readdir(p)).filter((n) => OOXML_EXT_RE.test(n) && !n.startsWith("~$")).sort().map((n) => path.join(p, n)));
     else files.push(p);
   }
   const gj = a.geojson ? JSON.parse(await fs.readFile(a.geojson, "utf8")) : null;

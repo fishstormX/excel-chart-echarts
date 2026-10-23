@@ -3,7 +3,7 @@
   const API = "api/v1/convert";
   const MAX = 10 * 1024 * 1024;
   let last = null, instances = [], geo = null;
-  const PROMPT_EN = `Convert the native charts inside an Excel workbook (.xlsx/.xlsm) into Apache ECharts option JSON with excel-echarts (xlsx2echarts).
+  const PROMPT_EN = `Convert the native charts inside an Excel workbook (.xlsx/.xlsm/.xltx/.xltm) into Apache ECharts option JSON with excel-echarts (xlsx2echarts).
 
 Prefer local — files never leave the machine, zero dependencies:
   Node ≥18:  npm i -g https://jev.fishmaple.cn/excelECharts/dl/excel-echarts-1.1.1.tgz
@@ -18,7 +18,7 @@ Result: {"charts":[{"sheet","anchor","title","types","warnings","option"}]} → 
 Optional key "x-numFmt" lists Excel number formats, and custom series (error bars, box-plot means/outliers) carry "x-renderItem"; apply both with prepare(option) from the package (or x2e-runtime.js) before setOption.
 Only native Excel charts are converted, not plain tables. Docs: https://jev.fishmaple.cn/excelECharts/api.html
 Commercial use: stormnetwork@163.com (海口龙华区妙妙鱼传媒工作室).`;
-  const PROMPT_ZH = `用 excel-echarts（xlsx2echarts）把 Excel 工作簿（.xlsx/.xlsm）里的原生图表转换成 Apache ECharts 的 option JSON。
+  const PROMPT_ZH = `用 excel-echarts（xlsx2echarts）把 Excel 工作簿（.xlsx/.xlsm/.xltx/.xltm）里的原生图表转换成 Apache ECharts 的 option JSON。
 
 优先本地运行（文件不离开本机，零依赖）：
   Node ≥18：  npm i -g https://jev.fishmaple.cn/excelECharts/dl/excel-echarts-1.1.1.tgz
@@ -44,7 +44,7 @@ Commercial use: stormnetwork@163.com (海口龙华区妙妙鱼传媒工作室).`
   }
 
   async function convert(file) {
-    if (!/\.xls[xm]$/i.test(file.name)) return status(t("e_type"));
+    if (!/\.xl[st][xm]$/i.test(file.name)) return status(t("e_type"));
     if (file.size > MAX) return status(t("e_size"));
     status(t("converting", { name: file.name }));
     geo = null;

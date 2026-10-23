@@ -959,7 +959,7 @@ async function toBytes(src: Input): Promise<Uint8Array> {
   throw new TypeError("convertXlsx: expected path, Uint8Array, ArrayBuffer or Blob");
 }
 
-/** Convert every native chart of an .xlsx/.xlsm into ECharts options. */
+/** Convert every native chart of an OOXML workbook (.xlsx/.xlsm/.xltx/.xltm) into ECharts options. */
 export async function convertXlsx(src: Input, opts: { excelCompat?: boolean; geojson?: any } = {}): Promise<ConvertResult> {
   const excelCompat = opts.excelCompat ?? true;
   const wb = await Workbook.open(await toBytes(src));

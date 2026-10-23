@@ -1,4 +1,4 @@
-"""xlsx2echarts CLI:  xlsx2echarts book.xlsx -o outdir   (also accepts several files / a folder)"""
+"""xlsx2echarts CLI:  xlsx2echarts book.xlsx -o outdir   (also accepts .xlsm/.xltx/.xltm, several files / a folder)"""
 from __future__ import annotations
 
 import argparse
@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from .converter import convert_xlsx
+from .formats import OOXML_GLOB
 from .version import __version__
 
 STATIC = Path(__file__).parent / "static"
@@ -53,8 +54,8 @@ def write_preview(outdir: Path, charts, title: str, geo_srcs=()):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(prog="xlsx2echarts", description="Convert native Excel charts in .xlsx to ECharts option JSON")
-    ap.add_argument("inputs", nargs="+", help=".xlsx / .xlsm files or folders")
+    ap = argparse.ArgumentParser(prog="xlsx2echarts", description="Convert native Excel charts in .xlsx/.xlsm/.xltx/.xltm to ECharts option JSON")
+    ap.add_argument("inputs", nargs="+", help=".xlsx / .xlsm / .xltx / .xltm files or folders")
     ap.add_argument("-o", "--out", default="echarts_out", help="output directory (default ./echarts_out)")
     ap.add_argument("--no-preview", action="store_true", help="do not write preview.html")
     ap.add_argument("--show-missing-axes", action="store_true",
@@ -65,7 +66,7 @@ def main(argv=None):
     a = ap.parse_args(argv)
     files = []
     for p in map(Path, a.inputs):
-        files += sorted(x for x in p.glob("*.xls[xm]") if not x.name.startswith("~$")) if p.is_dir() else [p]
+        files += sorted(x for x in p.glob(OOXML_GLOB) if not x.name.startswith("~$")) if p.is_dir() else [p]
     out = Path(a.out)
     gj = json.loads(Path(a.geojson).read_text(encoding="utf-8")) if a.geojson else None
     allc, index, rc = [], [], 0

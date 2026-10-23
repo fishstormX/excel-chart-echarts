@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Excel Chart to ECharts Converter – xlsx to ECharts option JSON | xlsx2echarts</title>
-  <meta name="description" content="Free online converter: upload an .xlsx and turn every native Excel chart (bar, line, area, pie, doughnut, scatter, radar, bubble, combo, secondary axis) into an Apache ECharts option JSON. Files are never stored." />
+  <meta name="description" content="Free online converter: upload an .xlsx/.xlsm/.xltx/.xltm and turn every native Excel chart (bar, line, area, pie, doughnut, scatter, radar, bubble, combo, secondary axis) into an Apache ECharts option JSON. Files are never stored." />
   <meta name="keywords" content="excel to echarts, xlsx to echarts, excel chart converter, echarts option, OOXML chart, DrawingML, Excel 图表转 ECharts, xlsx 转 echarts, 图表转换, ECharts 配置生成" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://jev.fishmaple.cn/excelECharts/" />
@@ -14,13 +14,13 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="xlsx2echarts" />
   <meta property="og:title" content="Excel Chart to ECharts Converter – xlsx to ECharts option JSON | xlsx2echarts" />
-  <meta property="og:description" content="Free online converter: upload an .xlsx and turn every native Excel chart into an Apache ECharts option JSON. Files are never stored." />
+  <meta property="og:description" content="Free online converter: upload an .xlsx/.xlsm/.xltx/.xltm and turn every native Excel chart into an Apache ECharts option JSON. Files are never stored." />
   <meta property="og:url" content="https://jev.fishmaple.cn/excelECharts/" />
   <meta property="og:locale" content="en_US" /><meta property="og:locale:alternate" content="zh_CN" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Excel Chart to ECharts Converter | xlsx2echarts" />
-  <meta name="twitter:description" content="Upload an .xlsx and turn every native Excel chart into an Apache ECharts option JSON." />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"xlsx2echarts","url":"https://jev.fishmaple.cn/excelECharts/","applicationCategory":"DeveloperApplication","operatingSystem":"Any (web browser)","description":"Convert native Excel charts in .xlsx files into Apache ECharts option JSON. 把 Excel 原生图表转换为 ECharts option。","inLanguage":["en","zh-CN"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"softwareVersion":"1.1.1","featureList":["Excel chart to ECharts","Combo charts and secondary axes","Theme colour resolution","Formula recalculation for uncached values","Office 2016 waterfall, treemap, sunburst, histogram, pareto, funnel, box & whisker","Error bars and trendlines","Filled maps (regionMap) with bundled world / China GeoJSON","Files never stored"]}</script>
+  <meta name="twitter:description" content="Upload an .xlsx/.xlsm/.xltx/.xltm and turn every native Excel chart into an Apache ECharts option JSON." />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"xlsx2echarts","url":"https://jev.fishmaple.cn/excelECharts/","applicationCategory":"DeveloperApplication","operatingSystem":"Any (web browser)","description":"Convert native Excel charts in .xlsx/.xlsm/.xltx/.xltm files into Apache ECharts option JSON. 把 Excel 原生图表转换为 ECharts option。","inLanguage":["en","zh-CN"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"softwareVersion":"1.1.1","featureList":["Excel chart to ECharts","Combo charts and secondary axes","Theme colour resolution","Formula recalculation for uncached values","Office 2016 waterfall, treemap, sunburst, histogram, pareto, funnel, box & whisker","Error bars and trendlines","Filled maps (regionMap) with bundled world / China GeoJSON","Files never stored"]}</script>
   <link rel="stylesheet" href="style.css" />
   <script src="i18n.js"></script>
   <script src="echarts.min.js" defer></script>
@@ -40,7 +40,7 @@
         </nav>
       </div>
       <p class="sub" data-i18n="sub"></p>
-      <noscript><h2>Excel chart to ECharts converter</h2><p>Upload an .xlsx and convert every native Excel chart into an Apache ECharts option JSON. Files are never stored.</p><p>上传 .xlsx，把 Excel 原生图表转换成 ECharts option JSON，文件不保存。</p><p>JavaScript is required.</p></noscript>
+      <noscript><h2>Excel chart to ECharts converter</h2><p>Upload an .xlsx/.xlsm/.xltx/.xltm and convert every native Excel chart into an Apache ECharts option JSON. Files are never stored.</p><p>上传 .xlsx/.xlsm/.xltx/.xltm，把 Excel 原生图表转换成 ECharts option JSON，文件不保存。</p><p>JavaScript is required.</p></noscript>
     </header>
 
     <section class="entry-grid" aria-label="CLI SDK API">
@@ -72,7 +72,7 @@
 
     <section class="panel">
       <div class="upload">
-        <label class="dropzone" id="drop"><span data-i18n="drop"></span><input type="file" id="file" accept=".xlsx,.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden /></label>
+        <label class="dropzone" id="drop"><span data-i18n="drop"></span><input type="file" id="file" accept=".xlsx,.xlsm,.xltx,.xltm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,application/vnd.openxmlformats-officedocument.spreadsheetml.template,application/vnd.ms-excel.template.macroEnabled.12" hidden /></label>
         <div style="display:flex;flex-direction:column;gap:8px">
           <label class="btn primary filebtn" for="file"><span data-i18n="pick"></span></label>
           <button type="button" class="btn" id="btnSample" data-i18n="sample"></button>

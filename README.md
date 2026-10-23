@@ -1,6 +1,6 @@
 # excel-echarts（xlsx2echarts）— Excel 原生图表 → ECharts option
 
-把 `.xlsx/.xlsm` 里**已经插入的 Excel 图表**（DrawingML `xl/charts/chartN.xml`，不是普通表格）转换成 Apache ECharts 的 `option` JSON。
+把 `.xlsx/.xlsm/.xltx/.xltm` 里**已经插入的 Excel 图表**（DrawingML `xl/charts/chartN.xml`，不是普通表格）转换成 Apache ECharts 的 `option` JSON。
 
 - **TypeScript 主实现**（npm 包 `excel-echarts`，Node ≥18 + 浏览器，零运行时依赖：自带 ZIP 中央目录解析、`node:zlib` / `DecompressionStream('deflate-raw')` 解压、命名空间感知的小型 XML 解析器）
 - **Python 实现**（PyPI 包名 `excel-echarts`，导入名 `xlsx2echarts`，只用标准库 `zipfile` + `xml.etree`）
@@ -113,4 +113,4 @@ node ts/dist/cli.js fixtures/*.xlsx -o out && python3 tests/screenshot.py file:/
 - 公式求值器只覆盖常用函数；不支持的函数/外部引用/数组公式 → 该点为空，并在 `warnings` 中说明。
 - 尺寸、字体、间距是按 Excel 默认值近似（ECharts 与 Excel 布局引擎不同），颜色、数据、类型、坐标轴、标签与图例力求一致。
 - **坐标轴隐藏规则**：openpyxl ≥3.1 默认图表既不写 `<c:delete>` 也不写 `<c:tickLblPos>`，Excel 打开时坐标轴不显示；本工具在此情形下同样隐藏轴标签（会给 warning），可用 `--show-missing-axes` / `excelCompat:false` 显示。
-- 旧版 `.xls`（BIFF）不支持；数据透视图按普通图表处理（使用缓存值）。
+- 支持 OOXML：`.xlsx` / `.xlsm` / `.xltx` / `.xltm`（宏不执行）；旧版 `.xls`（BIFF）与二进制 `.xlsb` 不支持；数据透视图按普通图表处理（使用缓存值）。

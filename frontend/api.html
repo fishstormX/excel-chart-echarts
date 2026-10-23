@@ -29,7 +29,7 @@
   <table>
     <tr><th>Method</th><th>Path</th><th>Description</th></tr>
     <tr><td>GET</td><td><code>/api/v1/health</code></td><td>version, max upload, rate limits</td></tr>
-    <tr><td>POST</td><td><code>/api/v1/convert</code></td><td>multipart <code>file</code> (.xlsx/.xlsm, ≤10 MB); optional <code>show_missing_axes=true</code>; optional <code>geojson</code> file (GeoJSON FeatureCollection for filled maps)</td></tr>
+    <tr><td>POST</td><td><code>/api/v1/convert</code></td><td>multipart <code>file</code> (.xlsx/.xlsm/.xltx/.xltm, ≤10 MB); optional <code>show_missing_axes=true</code>; optional <code>geojson</code> file (GeoJSON FeatureCollection for filled maps)</td></tr>
   </table>
   <pre><code>curl -s -F file=@book.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert</code></pre>
   <pre><code>{
@@ -105,7 +105,7 @@ excel-echarts book.xlsx --show-missing-axes # show axes Excel hides</code></pre>
   <table>
     <tr><th>方法</th><th>路径</th><th>说明</th></tr>
     <tr><td>GET</td><td><code>/api/v1/health</code></td><td>版本、上传上限、限流规则</td></tr>
-    <tr><td>POST</td><td><code>/api/v1/convert</code></td><td>multipart 字段 <code>file</code>（.xlsx/.xlsm，≤10 MB）；可选 <code>show_missing_axes=true</code>；可选 <code>geojson</code> 文件（着色地图用的 GeoJSON FeatureCollection）</td></tr>
+    <tr><td>POST</td><td><code>/api/v1/convert</code></td><td>multipart 字段 <code>file</code>（.xlsx/.xlsm/.xltx/.xltm，≤10 MB）；可选 <code>show_missing_axes=true</code>；可选 <code>geojson</code> 文件（着色地图用的 GeoJSON FeatureCollection）</td></tr>
   </table>
   <pre><code>curl -s -F file=@表格.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert</code></pre>
   <p>返回 <code>charts[]</code>，每项含 <code>sheet</code>（所在工作表）、<code>anchor</code>（覆盖的单元格区域）、<code>title</code>、<code>types</code>（Excel 图表组）、<code>warnings</code> 和 <code>option</code>（ECharts 配置）。</p>

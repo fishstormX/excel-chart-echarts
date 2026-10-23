@@ -1,7 +1,7 @@
 """xlsx2echarts HTTP API — uploads are parsed in memory only and never stored.
 
   GET  /api/v1/health
-  POST /api/v1/convert   (multipart field `file`: .xlsx/.xlsm) → {"ok":true,"charts":[{..., "option":{...}}]}
+  POST /api/v1/convert   (multipart field `file`: .xlsx/.xlsm/.xltx/.xltm) → {"ok":true,"charts":[{..., "option":{...}}]}
   GET  /api/docs (Swagger UI) · /api/openapi.json
 """
 from __future__ import annotations
@@ -121,7 +121,7 @@ def _check(raw: bytes):
     try:
         z = zipfile.ZipFile(io.BytesIO(raw))
     except zipfile.BadZipFile:
-        raise APIError(415, "NOT_XLSX", "not an .xlsx/.xlsm file (OOXML zip expected; legacy .xls is not supported)")
+        raise APIError(415, "NOT_XLSX", "not an .xlsx/.xlsm/.xltx/.xltm file (OOXML zip expected; legacy .xls / .xlsb are not supported)")
     names = z.namelist()
     if "xl/workbook.xml" not in names:
         raise APIError(415, "NOT_XLSX", "zip has no xl/workbook.xml — not an Excel workbook")
@@ -135,8 +135,8 @@ def health():
             "rate_limits": [{"count": n, "window_s": w} for n, w in limiter.rules], "stores_files": False}
 
 
-@app.post("/api/v1/convert", tags=["v1"], response_model=ConvertResponse, summary="Convert every native chart in an .xlsx to an ECharts option")
-async def convert(file: UploadFile = File(..., description=".xlsx / .xlsm workbook (≤ max_upload_mb)"),
+@app.post("/api/v1/convert", tags=["v1"], response_model=ConvertResponse, summary="Convert every native chart in an OOXML workbook to an ECharts option")
+async def convert(file: UploadFile = File(..., description=".xlsx / .xlsm / .xltx / .xltm workbook (≤ max_upload_mb)"),
                   show_missing_axes: bool = Form(False, description="show axes that lack <c:delete> (Excel hides them)"),
                   geojson: Optional[UploadFile] = File(None, description="optional GeoJSON FeatureCollection for regionMap (filled map) charts; "
                                                                            "default: bundled China provinces / world countries")):
