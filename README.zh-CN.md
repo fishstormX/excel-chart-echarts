@@ -179,7 +179,7 @@ python3 tests/parity.py
 
 ## License
 
-[MIT](LICENSE) © 海口龙华区妙妙鱼传媒工作室 / fishstormX
+[MIT](LICENSE) © 妙妙鱼 / fishstormX
 
 ## Acknowledgements
 

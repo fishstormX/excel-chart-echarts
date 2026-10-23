@@ -7,7 +7,7 @@
 - 两个实现对同一输入输出**完全相同的 JSON**，由 `tests/parity.py` 在 `fixtures/` 上校验
 - 在线版：<https://jev.fishmaple.cn/excelECharts/>（默认浏览器本地转换，不上传）· API 文档：`/excelECharts/api.html`
 
-> 本服务（公共 API）仅供测试使用，如有商业使用或合作意向，请联系 stormnetwork@163.com（海口龙华区妙妙鱼传媒工作室）。
+> 本服务（公共 API）仅供测试使用，如有商业使用或合作意向，请联系 stormnetwork@163.com（妙妙鱼）。
 
 ## 快速开始
 

@@ -17,7 +17,7 @@ Otherwise call the public REST API (testing only; per-IP rate limit; max 10 MB; 
 Result: {"charts":[{"sheet","anchor","title","types","warnings","option"}]} → echarts.init(el).setOption(option).
 Optional key "x-numFmt" lists Excel number formats, and custom series (error bars, box-plot means/outliers) carry "x-renderItem"; apply both with prepare(option) from the package (or x2e-runtime.js) before setOption.
 Only native Excel charts are converted, not plain tables. Docs: https://jev.fishmaple.cn/excelECharts/api.html
-Commercial use: stormnetwork@163.com (海口龙华区妙妙鱼传媒工作室).`;
+Commercial use: stormnetwork@163.com (妙妙鱼).`;
   const PROMPT_ZH = `用 excel-echarts（xlsx2echarts）把 Excel 工作簿（.xlsx/.xlsm/.xltx/.xltm）里的原生图表转换成 Apache ECharts 的 option JSON。
 
 优先本地运行（文件不离开本机，零依赖）：
@@ -32,7 +32,7 @@ Commercial use: stormnetwork@163.com (海口龙华区妙妙鱼传媒工作室).`
 返回：{"charts":[{"sheet","anchor","title","types","warnings","option"}]} → echarts.init(el).setOption(option)。
 可选字段 "x-numFmt" 是 Excel 数字格式；误差线、箱线图均值/离群点是带 "x-renderItem" 的 custom 系列。setOption 前用包里的 prepare(option)（或 x2e-runtime.js）统一处理。
 只转换 Excel 原生图表，不处理普通表格。文档：https://jev.fishmaple.cn/excelECharts/api.html?lang=zh
-商业使用：stormnetwork@163.com（海口龙华区妙妙鱼传媒工作室）。`;
+商业使用：stormnetwork@163.com（妙妙鱼）。`;
 
   function status(s) { $("#status").textContent = s; }
   function t(k, v) { return I18N.t(k, v); }
