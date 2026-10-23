@@ -13,11 +13,11 @@
 
 ```bash
 # Node / TypeScript
-npm i https://jev.fishmaple.cn/excelECharts/dl/excel-echarts-1.1.1.tgz   # 发布到 npm 后：npm i excel-echarts
+npm i https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz   # 发布到 npm 后：npm i excel-echarts
 excel-echarts book.xlsx -o out/        # 每个图表一个 JSON + index.json + preview.html（本地 echarts.min.js，无 CDN）
 
 # Python
-pip install https://jev.fishmaple.cn/excelECharts/dl/excel_echarts-1.1.1-py3-none-any.whl
+pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
 xlsx2echarts book.xlsx -o out/         # 或 python -m xlsx2echarts
 ```
 

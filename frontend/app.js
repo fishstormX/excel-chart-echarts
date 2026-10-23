@@ -6,10 +6,10 @@
   const PROMPT_EN = `Convert the native charts inside an Excel workbook (.xlsx/.xlsm/.xltx/.xltm) into Apache ECharts option JSON with excel-echarts (xlsx2echarts).
 
 Prefer local — files never leave the machine, zero dependencies:
-  Node ≥18:  npm i -g https://jev.fishmaple.cn/excelECharts/dl/excel-echarts-1.1.1.tgz
+  Node ≥18:  npm i -g https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
              excel-echarts book.xlsx -o out/        # one JSON per chart + index.json + preview.html
              import { convertXlsx } from "excel-echarts"; const { charts } = await convertXlsx("book.xlsx");
-  Python ≥3.8: pip install https://jev.fishmaple.cn/excelECharts/dl/excel_echarts-1.1.1-py3-none-any.whl
+  Python ≥3.8: pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
              xlsx2echarts book.xlsx -o out/   |   from xlsx2echarts import convert_xlsx
 
 Otherwise call the public REST API (testing only; per-IP rate limit; max 10 MB; files never stored):
@@ -21,10 +21,10 @@ Commercial use: stormnetwork@163.com (妙妙鱼).`;
   const PROMPT_ZH = `用 excel-echarts（xlsx2echarts）把 Excel 工作簿（.xlsx/.xlsm/.xltx/.xltm）里的原生图表转换成 Apache ECharts 的 option JSON。
 
 优先本地运行（文件不离开本机，零依赖）：
-  Node ≥18：  npm i -g https://jev.fishmaple.cn/excelECharts/dl/excel-echarts-1.1.1.tgz
+  Node ≥18：  npm i -g https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
              excel-echarts 表格.xlsx -o out/        # 每个图表一个 JSON + index.json + preview.html
              import { convertXlsx } from "excel-echarts"; const { charts } = await convertXlsx("表格.xlsx");
-  Python ≥3.8：pip install https://jev.fishmaple.cn/excelECharts/dl/excel_echarts-1.1.1-py3-none-any.whl
+  Python ≥3.8：pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
              xlsx2echarts 表格.xlsx -o out/   |   from xlsx2echarts import convert_xlsx
 
 否则调用公共 REST API（仅供测试；按 IP 限流；单文件 ≤10 MB；文件不保存）：

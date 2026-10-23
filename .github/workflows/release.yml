@@ -1,0 +1,103 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build artifacts only (do not create a GitHub Release)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: ts/package-lock.json
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build TypeScript package
+        working-directory: ts
+        run: |
+          npm ci
+          npm run build
+          npm pack
+          ls -la excel-echarts-*.tgz
+
+      - name: Build Python package
+        run: |
+          python -m pip install -U pip build
+          python -m build
+          ls -la dist/
+
+      - name: Collect artifacts
+        run: |
+          mkdir -p release-assets
+          cp ts/excel-echarts-*.tgz release-assets/
+          cp dist/excel_echarts-*-py3-none-any.whl release-assets/
+          cp dist/excel_echarts-*.tar.gz release-assets/ || true
+          # stable names for docs that pin "latest" by tag
+          VER="${GITHUB_REF_NAME#v}"
+          if [ "${GITHUB_REF_TYPE}" != "tag" ]; then
+            VER=$(python -c "import tomllib;print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+          fi
+          echo "VERSION=$VER" >> "$GITHUB_ENV"
+          cp release-assets/excel-echarts-*.tgz "release-assets/excel-echarts-${VER}.tgz" 2>/dev/null || true
+          ls -la release-assets/
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: excel-echarts-${{ env.VERSION }}
+          path: release-assets/*
+
+      - name: Create GitHub Release
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          VER="${TAG#v}"
+          cat > /tmp/release-notes.md << MD
+          ## excel-echarts ${TAG}
+
+          ### Install (from this release)
+
+          **Node / CLI**
+
+          \`\`\`bash
+          npm i -g https://github.com/fishstormX/excel2Echarts/releases/download/${TAG}/excel-echarts-${VER}.tgz
+          excel-echarts book.xlsx -j -o out.json
+          \`\`\`
+
+          **Python / CLI**
+
+          \`\`\`bash
+          pip install https://github.com/fishstormX/excel2Echarts/releases/download/${TAG}/excel_echarts-${VER}-py3-none-any.whl
+          xlsx2echarts book.xlsx -j -o out.json
+          \`\`\`
+
+          \`-j\` / \`--json\` = one-shot JSON (no preview.html / split files). Omit \`-j\` for the full export directory.
+          MD
+          # strip leading spaces from heredoc body
+          sed -i 's/^          //' /tmp/release-notes.md
+          gh release create "$TAG" release-assets/* \
+            --title "excel-echarts ${TAG}" \
+            --notes-file /tmp/release-notes.md

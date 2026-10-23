@@ -1,5 +1,10 @@
 #!/usr/bin/env node
-/** excel-echarts CLI: excel-echarts book.xlsx -o outdir  (also .xlsm/.xltx/.xltm; same layout as Python CLI) */
+/** excel-echarts CLI: excel-echarts book.xlsx -o outdir  (also .xlsm/.xltx/.xltm; same layout as Python CLI)
+ *
+ * Quick JSON only:
+ *   excel-echarts book.xlsx -j
+ *   excel-echarts book.xlsx -j -o out.json
+ */
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,17 +36,29 @@ window.__done = true;
 </script></body></html>`;
 
 async function main(argv: string[]) {
-  const a = { inputs: [] as string[], out: "echarts_out", preview: true, compat: true, stdout: false, geojson: null as string | null };
+  const a = { inputs: [] as string[], out: "echarts_out", preview: true, compat: true, json: false, stdout: false, geojson: null as string | null };
   for (let i = 0; i < argv.length; i++) {
     const x = argv[i];
     if (x === "-o" || x === "--out") a.out = argv[++i];
+    else if (x === "-j" || x === "--json") a.json = true;
     else if (x === "--no-preview") a.preview = false;
     else if (x === "--show-missing-axes") a.compat = false;
-    else if (x === "--stdout") a.stdout = true;
+    else if (x === "--stdout") { a.stdout = true; a.json = true; }
     else if (x === "--geojson") a.geojson = argv[++i];
     else if (x === "-V" || x === "--version") { console.log(`excel-echarts ${VERSION}`); return 0; }
     else if (x === "-h" || x === "--help") {
-      console.log("usage: excel-echarts [-o OUT] [--no-preview] [--show-missing-axes] [--stdout] [--geojson FILE] inputs...\n\nConvert native Excel charts in .xlsx/.xlsm/.xltx/.xltm to ECharts option JSON");
+      console.log(`usage: excel-echarts [-j] [-o OUT] [--no-preview] [--show-missing-axes] [--geojson FILE] inputs...
+
+Convert native Excel charts in .xlsx/.xlsm/.xltx/.xltm to ECharts option JSON
+
+  -j, --json          one-shot JSON only (stdout, or -o FILE.json); no preview / split files
+  -o, --out OUT       output directory (full export) or .json path (with -j)
+  --no-preview        skip preview.html (full export only)
+
+examples:
+  excel-echarts book.xlsx -j
+  excel-echarts book.xlsx -j -o out.json
+  excel-echarts book.xlsx -o out/`);
       return 0;
     } else a.inputs.push(x);
   }
@@ -53,12 +70,38 @@ async function main(argv: string[]) {
     else files.push(p);
   }
   const gj = a.geojson ? JSON.parse(await fs.readFile(a.geojson, "utf8")) : null;
+  const jsonOnly = a.json || a.stdout;
+
+  if (jsonOnly) {
+    const results: any[] = [];
+    let rc = 0;
+    for (const f of files) {
+      try {
+        const res = await convertXlsx(f, { excelCompat: a.compat, geojson: gj });
+        results.push({ file: path.basename(f), ...res });
+      } catch (e: any) {
+        console.error(`✗ ${f}: ${e?.message ?? e}`);
+        rc = 1;
+      }
+    }
+    if (!results.length && rc) return rc;
+    const payload = results.length === 1 ? results[0] : { files: results };
+    const text = JSON.stringify(payload, null, 2);
+    if (a.json && a.out !== "echarts_out") {
+      await fs.mkdir(path.dirname(path.resolve(a.out)), { recursive: true });
+      await fs.writeFile(a.out, text + "\n");
+      console.error(`✓ JSON → ${a.out}`);
+    } else {
+      console.log(text);
+    }
+    return rc;
+  }
+
   const all: any[] = []; let rc = 0;
   for (const f of files) {
     let res;
     try { res = await convertXlsx(f, { excelCompat: a.compat, geojson: gj }); } catch (e: any) { console.error(`✗ ${f}: ${e?.message ?? e}`); rc = 1; continue; }
     const base = path.basename(f);
-    if (a.stdout) { console.log(JSON.stringify({ file: base, ...res }, null, 2)); continue; }
     const sub = files.length > 1 ? path.join(a.out, base.replace(/\.[^.]*$/, "")) : a.out;
     await fs.mkdir(sub, { recursive: true });
     const entries: any[] = [];
@@ -74,11 +117,11 @@ async function main(argv: string[]) {
     if (!entries.length) console.log("  (no native Excel charts found — plain tables are not converted)");
   }
   const geoSrcs = [...new Set(all.map((c) => c.option?.["x-geo"]?.source).filter((s) => s))].sort() as string[];
-  if (!a.stdout && geoSrcs.length) {
+  if (geoSrcs.length) {
     await fs.mkdir(path.join(a.out, "geo"), { recursive: true });
     for (const s of geoSrcs) await fs.copyFile(s === "custom" ? a.geojson! : path.join(HERE, "..", "geo", `${s}.json`), path.join(a.out, "geo", `${s}.json`));
   }
-  if (!a.stdout && all.length && a.preview) {
+  if (all.length && a.preview) {
     for (const f of ["echarts.min.js", "x2e-runtime.js"]) await fs.copyFile(path.join(HERE, "..", "static", f), path.join(a.out, f));
     let geo = "{";
     for (const s of geoSrcs) geo += (geo.length > 1 ? "," : "") + `"${s}":` + (await fs.readFile(path.join(a.out, "geo", `${s}.json`), "utf8")).replace(/<\//g, "<\\/");

@@ -8,7 +8,7 @@
 
 Open-source DrawingML → ECharts converter with **CLI**, **SDK**, and **REST API** built in, plus a web demo that converts locally by default.
 
-[![version](https://img.shields.io/badge/version-1.1.1-3d8bfd)](ts/package.json)
+[![version](https://img.shields.io/badge/version-1.0.0-3d8bfd)](ts/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](ts/package.json)
 [![python](https://img.shields.io/badge/python-3.8%2B-blue?logo=python&logoColor=white)](pyproject.toml)
@@ -25,16 +25,18 @@ Three equal ways into the same converter. Pick one:
 ### CLI — local convert, no server
 
 ```bash
-# Node
-npm i https://jev.fishmaple.cn/excelECharts/dl/excel-echarts-1.1.1.tgz   # after npm: npm i excel-echarts
-excel-echarts book.xlsx -o out/
+# Node (from GitHub Release)
+npm i -g https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
+excel-echarts book.xlsx -j -o out.json          # one-shot JSON
+excel-echarts book.xlsx -o out/                 # full export + preview.html
 
-# Python
-pip install https://jev.fishmaple.cn/excelECharts/dl/excel_echarts-1.1.1-py3-none-any.whl
+# Python (from GitHub Release)
+pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
+xlsx2echarts book.xlsx -j -o out.json
 xlsx2echarts book.xlsx -o out/
 ```
 
-Writes one JSON per chart + `index.json` + `preview.html` (local `echarts.min.js`, no CDN).
+`-j` / `--json` writes a single JSON (stdout if you omit `-o`). Full `-o out/` mode still writes one JSON per chart + `index.json` + `preview.html`.
 
 ### SDK — TypeScript & Python
 
@@ -118,9 +120,9 @@ How it works internally: **[docs/architecture.md](docs/architecture.md)**.
 ### Install
 
 ```bash
-# from published tarball / wheel (or clone and build)
-npm i https://jev.fishmaple.cn/excelECharts/dl/excel-echarts-1.1.1.tgz
-pip install https://jev.fishmaple.cn/excelECharts/dl/excel_echarts-1.1.1-py3-none-any.whl
+# GitHub Release v1.0.0
+npm i https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
+pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
 ```
 
 From a clone:
@@ -134,8 +136,8 @@ cd ../ && pip install -e .
 ### Convert one file
 
 ```bash
-excel-echarts book.xlsx -o out/
-# open out/preview.html locally
+excel-echarts book.xlsx -j -o out.json   # JSON only
+excel-echarts book.xlsx -o out/          # full export; open out/preview.html
 ```
 
 ### Library
@@ -175,6 +177,7 @@ Env (defaults): `X2E_RATE_LIMITS=3/10s,20/60s`, `X2E_MAX_MB=10`, `X2E_MAX_UNZIPP
 
 | Doc | Contents |
 |---|---|
+| [GitHub Releases](https://github.com/fishstormX/excel2Echarts/releases) | Packaged `.tgz` (npm) + `.whl` (pip) — built by Actions on `v*` tags |
 | [Architecture](docs/architecture.md) | Pipeline, OOXML mapping, TS/Python parity, hooks |
 | [More examples](docs/more-examples.md) | Extended Excel vs ECharts gallery |
 | [中文 README](README.zh-CN.md) | Same page in Chinese |

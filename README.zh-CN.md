@@ -8,7 +8,7 @@
 
 开源 DrawingML → ECharts 转换器，自带 **CLI**、**SDK**、**REST API**；网页演示默认在浏览器本地完成，不必上传文件。
 
-[![version](https://img.shields.io/badge/version-1.1.1-3d8bfd)](ts/package.json)
+[![version](https://img.shields.io/badge/version-1.0.0-3d8bfd)](ts/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](ts/package.json)
 [![python](https://img.shields.io/badge/python-3.8%2B-blue?logo=python&logoColor=white)](pyproject.toml)
@@ -25,16 +25,18 @@
 ### CLI — 本地转换，不需要服务
 
 ```bash
-# Node
-npm i https://jev.fishmaple.cn/excelECharts/dl/excel-echarts-1.1.1.tgz   # 上架 npm 后：npm i excel-echarts
-excel-echarts book.xlsx -o out/
+# Node（GitHub Release）
+npm i -g https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
+excel-echarts book.xlsx -j -o out.json          # 只要一份 JSON
+excel-echarts book.xlsx -o out/                 # 全量导出 + preview.html
 
-# Python
-pip install https://jev.fishmaple.cn/excelECharts/dl/excel_echarts-1.1.1-py3-none-any.whl
+# Python（GitHub Release）
+pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
+xlsx2echarts book.xlsx -j -o out.json
 xlsx2echarts book.xlsx -o out/
 ```
 
-输出：每图一个 JSON + `index.json` + `preview.html`（本地 `echarts.min.js`，无 CDN）。
+`-j` / `--json`：只产出一份 JSON（不加 `-o` 则打印到 stdout）。`-o out/` 仍是每图一个 JSON + `index.json` + `preview.html`。
 
 ### SDK — TypeScript & Python
 
@@ -117,8 +119,9 @@ curl -s -F file=@book.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert
 ### 安装
 
 ```bash
-npm i https://jev.fishmaple.cn/excelECharts/dl/excel-echarts-1.1.1.tgz
-pip install https://jev.fishmaple.cn/excelECharts/dl/excel_echarts-1.1.1-py3-none-any.whl
+# GitHub Release v1.0.0
+npm i https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
+pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
 ```
 
 从源码：
@@ -132,7 +135,8 @@ cd ../ && pip install -e .
 ### 转换
 
 ```bash
-excel-echarts book.xlsx -o out/
+excel-echarts book.xlsx -j -o out.json   # 只要 JSON
+excel-echarts book.xlsx -o out/          # 全量导出
 ```
 
 ### 本地 API / 网页
@@ -156,6 +160,7 @@ uvicorn app.main:app --port 8765
 
 | 文档 | 内容 |
 |---|---|
+| [GitHub Releases](https://github.com/fishstormX/excel2Echarts/releases) | 打包好的 `.tgz`（npm）+ `.whl`（pip），打 `v*` 标签时由 Actions 自动构建 |
 | [架构说明](docs/architecture.zh-CN.md) | 流水线、OOXML 映射、TS/Python 对等 |
 | [更多样例](docs/more-examples.zh-CN.md) | 扩展对比图库 |
 | [English README](README.md) | 英文主页 |
