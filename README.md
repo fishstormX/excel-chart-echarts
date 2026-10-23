@@ -5,9 +5,52 @@
 - **TypeScript 主实现**（npm 包 `excel-echarts`，Node ≥18 + 浏览器，零运行时依赖：自带 ZIP 中央目录解析、`node:zlib` / `DecompressionStream('deflate-raw')` 解压、命名空间感知的小型 XML 解析器）
 - **Python 实现**（PyPI 包名 `excel-echarts`，导入名 `xlsx2echarts`，只用标准库 `zipfile` + `xml.etree`）
 - 两个实现对同一输入输出**完全相同的 JSON**，由 `tests/parity.py` 在 `fixtures/` 上校验
-- 在线版：<https://jev.fishmaple.cn/excelECharts/>（默认浏览器本地转换，不上传）· API 文档：`/excelECharts/api.html`
+- 在线版（中英 i18n）：[English](https://jev.fishmaple.cn/excelECharts/?lang=en) · [中文](https://jev.fishmaple.cn/excelECharts/?lang=zh)（默认浏览器本地转换，不上传）· API 文档：`/excelECharts/api.html`
 
 > 本服务（公共 API）仅供测试使用，如有商业使用或合作意向，请联系 stormnetwork@163.com（海口龙华区妙妙鱼传媒工作室）。
+
+## Live demo · Screenshots
+
+English UI: [https://jev.fishmaple.cn/excelECharts/?lang=en](https://jev.fishmaple.cn/excelECharts/?lang=en)  
+（中文：加 `?lang=zh`，或点页面右上角切换。默认跟随浏览器语言。）
+
+![English demo UI](docs/screenshots/web/ui_en.png)
+
+Left = chart as opened in a spreadsheet (WPS Spreadsheets, English UI). Right = same workbook converted by excel-echarts (ECharts). Office 2016 **chartEx** types (waterfall / treemap / …) and filled maps often show as “unavailable” in WPS — for those we show the ECharts output only; open the live demo samples to try them.
+
+### Combo · secondary axis
+
+| Excel / WPS | excel-echarts |
+|---|---|
+| ![xlsxwriter combo](docs/screenshots/excel/xlsxwriter_combo.png) | ![xlsxwriter combo web](docs/screenshots/web/xlsxwriter_combo.png) |
+| ![openpyxl combo](docs/screenshots/excel/openpyxl_combo.png) | ![openpyxl combo web](docs/screenshots/web/openpyxl_combo.png) |
+
+### Error bars · multi-level categories · Gantt
+
+| Excel / WPS | excel-echarts |
+|---|---|
+| ![errbars](docs/screenshots/excel/errbars.png) | ![errbars web](docs/screenshots/web/errbars.png) |
+| ![edge](docs/screenshots/excel/edge_multilevel.png) | ![edge web](docs/screenshots/web/edge_multilevel.png) |
+| ![gantt](docs/screenshots/excel/gantt.png) | ![gantt web](docs/screenshots/web/gantt.png) |
+
+### Market series · MS templates (pareto / funnel / regional)
+
+| Excel / WPS | excel-echarts |
+|---|---|
+| ![user3](docs/screenshots/excel/user3_line.png) | ![user3 web](docs/screenshots/web/user3_line.png) |
+| ![pareto](docs/screenshots/excel/ms_pareto.png) | ![pareto web](docs/screenshots/web/ms_pareto.png) |
+| ![funnel](docs/screenshots/excel/ms_funnel.png) | ![funnel web](docs/screenshots/web/ms_funnel.png) |
+| ![regional](docs/screenshots/excel/ms_regional.png) | ![regional web](docs/screenshots/web/ms_regional.png) |
+
+### Office 2016 chartEx (ECharts side)
+
+| Waterfall | Treemap | Sample pack |
+|---|---|---|
+| ![waterfall](docs/screenshots/web/office2016_waterfall.png) | ![treemap](docs/screenshots/web/office2016_treemap.png) | ![all](docs/screenshots/web/office2016_all.png) |
+
+Filled map sample: ![world map](docs/screenshots/web/maps_world.png)
+
+Try the built-in samples on the [live English demo](https://jev.fishmaple.cn/excelECharts/?lang=en): *Try a sample* · *Office 2016 charts* · *Error bars & trendlines* · *Filled maps* · *Gantt*.
 
 ## 快速开始
 
