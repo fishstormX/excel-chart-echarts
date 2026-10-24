@@ -1,7 +1,7 @@
 # 更多样例
 
 左右对比：**Excel / WPS**（左）vs **excel-chart-echarts**（右）。  
-主 [README](../README.zh-CN.md) 只保留两个基础例；本页是其余图库。
+主 [README](https://github.com/fishstormX/excel-chart-echarts/blob/main/README.zh-CN.md) 只保留两个基础例；本页是其余图库。
 源工作簿在 [`examples/`](../examples/)（英文文件名）。
 
 在线演示：[English](https://jev.fishmaple.cn/excelECharts/?lang=en) · [中文](https://jev.fishmaple.cn/excelECharts/?lang=zh)

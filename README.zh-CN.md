@@ -1,6 +1,6 @@
 <div align="center">
 
-[English](README.md) · **简体中文**
+[English](https://github.com/fishstormX/excel-chart-echarts/blob/main/README.md) · **简体中文**
 
 # excel-chart-echarts
 
@@ -10,7 +10,7 @@
 
 [![npm](https://img.shields.io/npm/v/excel-chart-echarts.svg)](https://www.npmjs.com/package/excel-chart-echarts)
 [![PyPI](https://img.shields.io/pypi/v/excel-chart-echarts.svg)](https://pypi.org/project/excel-chart-echarts/)
-[![version](https://img.shields.io/badge/version-1.0.0-3d8bfd)](ts/package.json)
+[![version](https://img.shields.io/badge/version-1.0.1-3d8bfd)](ts/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](ts/package.json)
 [![python](https://img.shields.io/badge/python-3.8%2B-blue?logo=python&logoColor=white)](pyproject.toml)
@@ -172,7 +172,7 @@ uvicorn app.main:app --port 8765
 | [架构说明](docs/architecture.zh-CN.md) | 流水线、OOXML 映射、TS/Python 对等 |
 | [examples/](examples/) | 图库用到的示例 `.xlsx` / `.xltx` |
 | [更多样例](docs/more-examples.zh-CN.md) | 扩展对比图库 |
-| [English README](README.md) | 英文主页 |
+| [English README](https://github.com/fishstormX/excel-chart-echarts/blob/main/README.md) | 英文主页 |
 
 ## 测试
 

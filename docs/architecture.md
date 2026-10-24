@@ -153,4 +153,4 @@ tests/            Fixture generators + parity + screenshot helpers
 docs/             Architecture, more examples, screenshots
 ```
 
-See also: [More examples](more-examples.md) · [README](../README.md)
+See also: [More examples](more-examples.md) · [README](https://github.com/fishstormX/excel-chart-echarts/blob/main/README.md)

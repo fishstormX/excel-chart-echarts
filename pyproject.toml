@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "excel-chart-echarts"
-version = "1.0.0"
-description = "Convert embedded native Excel charts (DrawingML in .xlsx/.xlsm/.xltx/.xltm) into Apache ECharts options — not whole-workbook charting; zero dependencies, SDK + CLI (+ optional HTTP API)"
+version = "1.0.1"
+description = "Convert embedded native Excel charts (DrawingML in .xlsx/.xlsm/.xltx/.xltm) into Apache ECharts options — not whole-workbook charting; TypeScript & Python, zero-dependency, with CLI"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
@@ -21,6 +21,8 @@ api = ["fastapi>=0.100", "uvicorn>=0.22", "python-multipart"]
 Homepage = "https://github.com/fishstormX/excel-chart-echarts"
 Documentation = "https://github.com/fishstormX/excel-chart-echarts#readme"
 Repository = "https://github.com/fishstormX/excel-chart-echarts"
+Demo = "https://jev.fishmaple.cn/excelECharts/"
+Issues = "https://github.com/fishstormX/excel-chart-echarts/issues"
 
 [project.scripts]
 xlsx2echarts = "xlsx2echarts.cli:main"

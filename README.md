@@ -1,6 +1,6 @@
 <div align="center">
 
-**English** · [简体中文](README.zh-CN.md)
+**English** · [简体中文](https://github.com/fishstormX/excel-chart-echarts/blob/main/README.zh-CN.md)
 
 # excel-chart-echarts
 
@@ -10,7 +10,7 @@ Open-source DrawingML → ECharts converter with **CLI**, **SDK**, and **REST AP
 
 [![npm](https://img.shields.io/npm/v/excel-chart-echarts.svg)](https://www.npmjs.com/package/excel-chart-echarts)
 [![PyPI](https://img.shields.io/pypi/v/excel-chart-echarts.svg)](https://pypi.org/project/excel-chart-echarts/)
-[![version](https://img.shields.io/badge/version-1.0.0-3d8bfd)](ts/package.json)
+[![version](https://img.shields.io/badge/version-1.0.1-3d8bfd)](ts/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](ts/package.json)
 [![python](https://img.shields.io/badge/python-3.8%2B-blue?logo=python&logoColor=white)](pyproject.toml)
@@ -189,7 +189,7 @@ Env (defaults): `X2E_RATE_LIMITS=3/10s,20/60s`, `X2E_MAX_MB=10`, `X2E_MAX_UNZIPP
 | [Architecture](docs/architecture.md) | Pipeline, OOXML mapping, TS/Python parity, hooks |
 | [examples/](examples/) | Sample `.xlsx` / `.xltx` workbooks used in the gallery |
 | [More examples](docs/more-examples.md) | Extended Excel vs ECharts gallery |
-| [中文 README](README.zh-CN.md) | Same page in Chinese |
+| [中文 README](https://github.com/fishstormX/excel-chart-echarts/blob/main/README.zh-CN.md) | Same page in Chinese |
 
 ## Tests
 
