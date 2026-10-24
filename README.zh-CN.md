@@ -8,6 +8,7 @@
 
 开源 DrawingML → ECharts 转换器，自带 **CLI**、**SDK**、**REST API**；网页演示默认在浏览器本地完成，不必上传文件。
 
+[![npm](https://img.shields.io/npm/v/excel-chart-echarts.svg)](https://www.npmjs.com/package/excel-chart-echarts)
 [![version](https://img.shields.io/badge/version-1.0.0-3d8bfd)](ts/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](ts/package.json)
@@ -25,12 +26,12 @@
 ### CLI — 本地转换，不需要服务
 
 ```bash
-# Node（GitHub Release）
-npm i -g https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel-chart-echarts-1.0.0.tgz
+# Node（npm）
+npm i -g excel-chart-echarts
 excel-chart-echarts book.xlsx -j -o out.json          # 只要一份 JSON
 excel-chart-echarts book.xlsx -o out/                 # 全量导出 + preview.html
 
-# Python（GitHub Release）
+# Python（PyPI 上线前仍用 GitHub Release）
 pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
 xlsx2echarts book.xlsx -j -o out.json
 xlsx2echarts book.xlsx -o out/
@@ -123,8 +124,8 @@ curl -s -F file=@book.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert
 ### 安装
 
 ```bash
-# GitHub Release v1.0.0
-npm i https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel-chart-echarts-1.0.0.tgz
+npm i excel-chart-echarts
+# Python 在 PyPI 上线前：
 pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
 ```
 
@@ -164,8 +165,9 @@ uvicorn app.main:app --port 8765
 
 | 文档 | 内容 |
 |---|---|
-| [CI/CD](https://github.com/fishstormX/excel-chart-echarts/actions/workflows/ci.yml) | `main` / PR 自动构建与对等测试；打 `v*` 标签时打包 npm/wheel 并发 GitHub Release |
-| [GitHub Releases](https://github.com/fishstormX/excel-chart-echarts/releases) | 打包好的 `.tgz`（npm）+ `.whl`（pip），打 `v*` 标签时由 Actions 自动构建 |
+| [CI/CD](https://github.com/fishstormX/excel-chart-echarts/actions/workflows/ci.yml) | `main` / PR 测试；打 `v*` 标签时发 GitHub Release + `npm stage publish` |
+| [npm](https://www.npmjs.com/package/excel-chart-echarts) | `npm i excel-chart-echarts`（CI 暂存；需 2FA 批准上线） |
+| [GitHub Releases](https://github.com/fishstormX/excel-chart-echarts/releases) | `v*` 标签附带 `.tgz` + `.whl` |
 | [架构说明](docs/architecture.zh-CN.md) | 流水线、OOXML 映射、TS/Python 对等 |
 | [examples/](examples/) | 图库用到的示例 `.xlsx` / `.xltx` |
 | [更多样例](docs/more-examples.zh-CN.md) | 扩展对比图库 |
