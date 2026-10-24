@@ -117,9 +117,12 @@ jobs:
             VER=$(python -c "import tomllib;print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
           fi
           echo "VERSION=$VER" >> "$GITHUB_ENV"
-          # ensure stable tgz name matching docs
+          # ensure stable tgz name matching docs (skip if pack already used that name)
           SRC=$(ls release-assets/excel-chart-echarts-*.tgz | head -1)
-          cp "$SRC" "release-assets/excel-chart-echarts-${VER}.tgz"
+          DEST="release-assets/excel-chart-echarts-${VER}.tgz"
+          if [ "$SRC" != "$DEST" ]; then
+            cp "$SRC" "$DEST"
+          fi
           ls -la release-assets/
 
       - name: Upload workflow artifacts
