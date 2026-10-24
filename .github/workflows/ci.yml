@@ -20,6 +20,7 @@ concurrency:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   test:
@@ -84,6 +85,7 @@ jobs:
           node-version: "24"
           cache: npm
           cache-dependency-path: ts/package-lock.json
+          registry-url: https://registry.npmjs.org
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -126,6 +128,25 @@ jobs:
           name: excel-chart-echarts-${{ env.VERSION }}
           path: release-assets/*
 
+
+      - name: Publish to npm (stage)
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        working-directory: ts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${NODE_AUTH_TOKEN:-}" ]; then
+            echo "NPM_TOKEN secret missing — skip npm publish."
+            exit 1
+          fi
+          printf '//registry.npmjs.org/:_authToken=%s\n' "$NODE_AUTH_TOKEN" > .npmrc
+          # Stage-only granular tokens cannot npm publish directly.
+          # Maintainer must later: npm stage approve <id> --otp <code>
+          npm stage publish --access public
+          rm -f .npmrc
+          echo "Staged to npm. Approve with 2FA: npm stage list && npm stage approve <id> --otp ******"
+
       - name: Create GitHub Release
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         env:
@@ -141,9 +162,11 @@ jobs:
           **Node / CLI**
 
           \`\`\`bash
-          npm i -g https://github.com/fishstormX/excel-chart-echarts/releases/download/${TAG}/excel-chart-echarts-${VER}.tgz
+          npm i -g excel-chart-echarts@${VER}
           excel-chart-echarts book.xlsx -j -o out.json
           \`\`\`
+
+          (GitHub Release asset still attached if you prefer offline install.)
 
           **Python / CLI**
 
