@@ -9,6 +9,7 @@
 Open-source DrawingML → ECharts converter with **CLI**, **SDK**, and **REST API** built in, plus a web demo that converts locally by default.
 
 [![npm](https://img.shields.io/npm/v/excel-chart-echarts.svg)](https://www.npmjs.com/package/excel-chart-echarts)
+[![PyPI](https://img.shields.io/pypi/v/excel-chart-echarts.svg)](https://pypi.org/project/excel-chart-echarts/)
 [![version](https://img.shields.io/badge/version-1.0.0-3d8bfd)](ts/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](ts/package.json)
@@ -31,8 +32,8 @@ npm i -g excel-chart-echarts
 excel-chart-echarts book.xlsx -j -o out.json          # one-shot JSON
 excel-chart-echarts book.xlsx -o out/                 # full export + preview.html
 
-# Python (GitHub Release until PyPI is up)
-pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
+# Python (PyPI)
+pip install excel-chart-echarts
 xlsx2echarts book.xlsx -j -o out.json
 xlsx2echarts book.xlsx -o out/
 ```
@@ -126,8 +127,7 @@ How it works internally: **[docs/architecture.md](docs/architecture.md)**.
 
 ```bash
 npm i excel-chart-echarts
-# Python still from GitHub Release until PyPI:
-pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
+pip install excel-chart-echarts
 ```
 
 From a clone:
@@ -182,8 +182,9 @@ Env (defaults): `X2E_RATE_LIMITS=3/10s,20/60s`, `X2E_MAX_MB=10`, `X2E_MAX_UNZIPP
 
 | Doc | Contents |
 |---|---|
-| [CI/CD](https://github.com/fishstormX/excel-chart-echarts/actions/workflows/ci.yml) | Build + parity on `main` / PRs; on `v*` tags: GitHub Release + `npm stage publish` |
-| [npm](https://www.npmjs.com/package/excel-chart-echarts) | `npm i excel-chart-echarts` (CI stages on `v*`; approve with 2FA) |
+| [CI/CD](https://github.com/fishstormX/excel-chart-echarts/actions/workflows/ci.yml) | Build + parity on `main` / PRs; on `v*` tags: GitHub Release + npm stage + PyPI |
+| [npm](https://www.npmjs.com/package/excel-chart-echarts) | `npm i excel-chart-echarts` (CI stages on `v*`; approve in browser) |
+| [PyPI](https://pypi.org/project/excel-chart-echarts/) | `pip install excel-chart-echarts` |
 | [GitHub Releases](https://github.com/fishstormX/excel-chart-echarts/releases) | Packaged `.tgz` (npm) + `.whl` (pip) — built by Actions on `v*` tags |
 | [Architecture](docs/architecture.md) | Pipeline, OOXML mapping, TS/Python parity, hooks |
 | [examples/](examples/) | Sample `.xlsx` / `.xltx` workbooks used in the gallery |

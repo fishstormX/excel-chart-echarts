@@ -147,6 +147,21 @@ jobs:
           rm -f .npmrc
           echo "Staged to npm. Approve with 2FA: npm stage list && npm stage approve <id> --otp ******"
 
+
+      - name: Publish to PyPI
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${TWINE_PASSWORD:-}" ]; then
+            echo "PYPI_TOKEN secret missing — skip PyPI upload."
+            exit 1
+          fi
+          python -m pip install -U twine
+          twine upload dist/*
+
       - name: Create GitHub Release
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         env:
@@ -171,7 +186,7 @@ jobs:
           **Python / CLI**
 
           \`\`\`bash
-          pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/${TAG}/excel_chart_echarts-${VER}-py3-none-any.whl
+          pip install excel-chart-echarts==${VER}
           xlsx2echarts book.xlsx -j -o out.json
           \`\`\`
 
