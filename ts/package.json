@@ -1,6 +1,6 @@
 {
   "name": "excel-chart-echarts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Convert embedded native Excel charts (DrawingML in .xlsx/.xlsm/.xltx/.xltm) into Apache ECharts options — not whole-workbook charting; TypeScript & Python, zero-dependency, with CLI",
   "type": "module",
   "main": "./dist/index.js",
