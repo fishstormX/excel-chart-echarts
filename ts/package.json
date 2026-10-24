@@ -1,7 +1,7 @@
 {
-  "name": "excel-echarts",
+  "name": "excel-chart-echarts",
   "version": "1.0.0",
-  "description": "Convert native Excel charts (DrawingML in .xlsx/.xlsm/.xltx/.xltm) into Apache ECharts options \u2014 zero-dependency, Node + browser, with CLI",
+  "description": "Convert embedded native Excel charts (DrawingML in .xlsx/.xlsm/.xltx/.xltm) into Apache ECharts options — not whole-workbook charting; zero-dependency, Node + browser, with CLI",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -17,8 +17,9 @@
     "./geo/*": "./geo/*"
   },
   "bin": {
-    "excel-echarts": "dist/cli.js",
-    "xlsx2echarts": "dist/cli.js"
+    "excel-chart-echarts": "dist/cli.js",
+    "xlsx2echarts": "dist/cli.js",
+    "excel-echarts": "dist/cli.js"
   },
   "files": [
     "dist",
@@ -49,11 +50,15 @@
     "spreadsheet"
   ],
   "license": "MIT",
-  "author": "\u6d77\u53e3\u9f99\u534e\u533a\u5999\u5999\u9c7c\u4f20\u5a92\u5de5\u4f5c\u5ba4 <stormnetwork@163.com>",
+  "author": "海口龙华区妙妙鱼传媒工作室 <stormnetwork@163.com>",
   "homepage": "https://jev.fishmaple.cn/excelECharts/",
   "devDependencies": {
     "@types/node": "^26.6.5",
     "esbuild": "^0.28.2",
     "typescript": "^7.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fishstormX/excel-chart-echarts.git"
   }
 }

@@ -96,7 +96,7 @@ jobs:
           npm ci
           npm run build
           npm pack
-          ls -la excel-echarts-*.tgz
+          ls -la excel-chart-echarts-*.tgz
 
       - name: Build Python package
         run: |
@@ -107,23 +107,23 @@ jobs:
       - name: Collect artifacts
         run: |
           mkdir -p release-assets
-          cp ts/excel-echarts-*.tgz release-assets/
-          cp dist/excel_echarts-*-py3-none-any.whl release-assets/
-          cp dist/excel_echarts-*.tar.gz release-assets/ || true
+          cp ts/excel-chart-echarts-*.tgz release-assets/
+          cp dist/excel_chart_echarts-*-py3-none-any.whl release-assets/
+          cp dist/excel_chart_echarts-*.tar.gz release-assets/ || true
           VER="${GITHUB_REF_NAME#v}"
           if [ "${GITHUB_REF_TYPE}" != "tag" ]; then
             VER=$(python -c "import tomllib;print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
           fi
           echo "VERSION=$VER" >> "$GITHUB_ENV"
           # ensure stable tgz name matching docs
-          SRC=$(ls release-assets/excel-echarts-*.tgz | head -1)
-          cp "$SRC" "release-assets/excel-echarts-${VER}.tgz"
+          SRC=$(ls release-assets/excel-chart-echarts-*.tgz | head -1)
+          cp "$SRC" "release-assets/excel-chart-echarts-${VER}.tgz"
           ls -la release-assets/
 
       - name: Upload workflow artifacts
         uses: actions/upload-artifact@v5
         with:
-          name: excel-echarts-${{ env.VERSION }}
+          name: excel-chart-echarts-${{ env.VERSION }}
           path: release-assets/*
 
       - name: Create GitHub Release
@@ -134,21 +134,21 @@ jobs:
           TAG="${GITHUB_REF_NAME}"
           VER="${TAG#v}"
           cat > /tmp/release-notes.md << MD
-          ## excel-echarts ${TAG}
+          ## excel-chart-echarts ${TAG}
 
           ### Install (from this release)
 
           **Node / CLI**
 
           \`\`\`bash
-          npm i -g https://github.com/fishstormX/excel2Echarts/releases/download/${TAG}/excel-echarts-${VER}.tgz
-          excel-echarts book.xlsx -j -o out.json
+          npm i -g https://github.com/fishstormX/excel-chart-echarts/releases/download/${TAG}/excel-chart-echarts-${VER}.tgz
+          excel-chart-echarts book.xlsx -j -o out.json
           \`\`\`
 
           **Python / CLI**
 
           \`\`\`bash
-          pip install https://github.com/fishstormX/excel2Echarts/releases/download/${TAG}/excel_echarts-${VER}-py3-none-any.whl
+          pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/${TAG}/excel_chart_echarts-${VER}-py3-none-any.whl
           xlsx2echarts book.xlsx -j -o out.json
           \`\`\`
 
@@ -156,5 +156,5 @@ jobs:
           MD
           sed -i 's/^          //' /tmp/release-notes.md
           gh release create "$TAG" release-assets/* \
-            --title "excel-echarts ${TAG}" \
+            --title "excel-chart-echarts ${TAG}" \
             --notes-file /tmp/release-notes.md

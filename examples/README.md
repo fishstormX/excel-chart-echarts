@@ -4,7 +4,7 @@ Native Excel charts used in the README / [more-examples](../docs/more-examples.m
 Convert locally:
 
 ```bash
-excel-echarts examples/line-chart.xlsx -j -o out.json
+excel-chart-echarts examples/line-chart.xlsx -j -o out.json
 # or
 xlsx2echarts examples/combo-secondary-axis.xlsx -o out/
 ```

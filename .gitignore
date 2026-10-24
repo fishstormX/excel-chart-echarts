@@ -23,6 +23,9 @@ screenshots/
 dist/
 
 # setuptools / pack leftovers
-excel_echarts.egg-info/
+excel_chart_echarts.egg-info/
 *.egg-info/
 ts/*.tgz
+
+# local npm auth (never commit)
+ts/.npmrc

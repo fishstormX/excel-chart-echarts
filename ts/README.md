@@ -1,9 +1,9 @@
-# excel-echarts（xlsx2echarts）— Excel 原生图表 → ECharts option
+# excel-chart-echarts（xlsx2echarts）— Excel 原生图表 → ECharts option
 
 把 `.xlsx/.xlsm/.xltx/.xltm` 里**已经插入的 Excel 图表**（DrawingML `xl/charts/chartN.xml`，不是普通表格）转换成 Apache ECharts 的 `option` JSON。
 
-- **TypeScript 主实现**（npm 包 `excel-echarts`，Node ≥18 + 浏览器，零运行时依赖：自带 ZIP 中央目录解析、`node:zlib` / `DecompressionStream('deflate-raw')` 解压、命名空间感知的小型 XML 解析器）
-- **Python 实现**（PyPI 包名 `excel-echarts`，导入名 `xlsx2echarts`，只用标准库 `zipfile` + `xml.etree`）
+- **TypeScript 主实现**（npm 包 `excel-chart-echarts`，Node ≥18 + 浏览器，零运行时依赖：自带 ZIP 中央目录解析、`node:zlib` / `DecompressionStream('deflate-raw')` 解压、命名空间感知的小型 XML 解析器）
+- **Python 实现**（PyPI 包名 `excel-chart-echarts`，导入名 `xlsx2echarts`，只用标准库 `zipfile` + `xml.etree`）
 - 两个实现对同一输入输出**完全相同的 JSON**，由 `tests/parity.py` 在 `fixtures/` 上校验
 - 在线版：<https://jev.fishmaple.cn/excelECharts/>（默认浏览器本地转换，不上传）· API 文档：`/excelECharts/api.html`
 
@@ -13,16 +13,16 @@
 
 ```bash
 # Node / TypeScript
-npm i https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz   # 发布到 npm 后：npm i excel-echarts
-excel-echarts book.xlsx -o out/        # 每个图表一个 JSON + index.json + preview.html（本地 echarts.min.js，无 CDN）
+npm i https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel-chart-echarts-1.0.0.tgz   # 发布到 npm 后：npm i excel-chart-echarts
+excel-chart-echarts book.xlsx -o out/        # 每个图表一个 JSON + index.json + preview.html（本地 echarts.min.js，无 CDN）
 
 # Python
-pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
+pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
 xlsx2echarts book.xlsx -o out/         # 或 python -m xlsx2echarts
 ```
 
 ```ts
-import { convertXlsx, prepare } from "excel-echarts";
+import { convertXlsx, prepare } from "excel-chart-echarts";
 const { charts } = await convertXlsx("book.xlsx");        // 路径 | Uint8Array | ArrayBuffer | Blob
 echarts.init(el).setOption(prepare(charts[0].option));      // prepare() 把 x-numFmt 变成 formatter 函数
 ```

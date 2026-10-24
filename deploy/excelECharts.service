@@ -1,5 +1,5 @@
 [Unit]
-Description=excel-echarts API (xlsx charts -> ECharts options, FastAPI)
+Description=excel-chart-echarts API (xlsx charts -> ECharts options, FastAPI)
 After=network.target
 
 [Service]

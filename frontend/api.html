@@ -47,16 +47,16 @@
   <p><b><code>x-numFmt</code></b>: ECharts JSON cannot contain functions, so Excel number formats (e.g. <code>0%</code>, <code>#,##0.00</code>, dates) are listed as hooks. Load <a href="x2e-runtime.js">x2e-runtime.js</a> and call <code>chart.setOption(X2E.prepare(option))</code>, or just delete the key. <code>prepare()</code> also attaches <code>renderItem</code> to custom series marked <code>"x-renderItem"</code> (error bars, box &amp; whisker means/outliers/points).</p>
 
   <h2 id="sdk">SDK — TypeScript / JavaScript (primary)</h2>
-  <p>npm package <code>excel-echarts</code> — zero runtime dependencies, works in Node ≥18 and modern browsers (own ZIP reader + XML parser; inflate via <code>node:zlib</code> or <code>DecompressionStream</code>). Not on the npm registry yet; install the tarball:</p>
-  <pre><code>npm i https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
+  <p>npm package <code>excel-chart-echarts</code> — zero runtime dependencies, works in Node ≥18 and modern browsers (own ZIP reader + XML parser; inflate via <code>node:zlib</code> or <code>DecompressionStream</code>). Not on the npm registry yet; install the tarball:</p>
+  <pre><code>npm i https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel-chart-echarts-1.0.0.tgz
 
-import { convertXlsx, prepare } from "excel-echarts";
+import { convertXlsx, prepare } from "excel-chart-echarts";
 const { charts } = await convertXlsx("book.xlsx");      // Node: path | Uint8Array | ArrayBuffer | Blob
 echarts.init(el).setOption(prepare(charts[0].option));    // prepare() applies x-numFmt formatters</code></pre>
   <p>Browser without a bundler: <code>&lt;script src="https://jev.fishmaple.cn/excelECharts/excel-echarts.browser.js"&gt;&lt;/script&gt;</code> → <code>await ExcelECharts.convertXlsx(await file.arrayBuffer())</code>. ES module: <a href="dl/excel-echarts.esm.js">dl/excel-echarts.esm.js</a>.</p>
   <h2 id="sdk-py">SDK — Python</h2>
   <p>Same behaviour and byte-identical JSON (checked by a parity test). Pure stdlib (zipfile + xml.etree), Python ≥3.8.</p>
-  <pre><code>pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
+  <pre><code>pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
 from xlsx2echarts import convert_xlsx
 res = convert_xlsx("book.xlsx")          # path, bytes or file object
 for c in res["charts"]:
@@ -72,11 +72,11 @@ const j = await (await fetch("https://jev.fishmaple.cn/excelECharts/api/v1/conve
 echarts.init(el).setOption(X2E.prepare(j.charts[0].option));</code></pre>
 
   <h2 id="cli">CLI</h2>
-  <p>Node: <code>excel-echarts</code> (alias <code>xlsx2echarts</code>; or <code>npx excel-echarts</code> after installing). Python: <code>xlsx2echarts</code> / <code>excel-echarts</code> / <code>python -m xlsx2echarts</code>. Same flags and output layout.</p>
-  <pre><code>excel-echarts book.xlsx -o out/            # out/&lt;sheet&gt;_chartN.json + index.json + preview.html
-excel-echarts a.xlsx b.xlsx ./folder -o out/  # several files → out/&lt;file&gt;/...
-excel-echarts book.xlsx --stdout            # print JSON
-excel-echarts book.xlsx --show-missing-axes # show axes Excel hides</code></pre>
+  <p>Node: <code>excel-chart-echarts</code> (aliases <code>xlsx2echarts</code>, deprecated <code>excel-echarts</code>; or <code>npx excel-chart-echarts</code>). Python: <code>xlsx2echarts</code> / <code>excel-chart-echarts</code> / <code>python -m xlsx2echarts</code>. Same flags and output layout.</p>
+  <pre><code>excel-chart-echarts book.xlsx -o out/            # out/&lt;sheet&gt;_chartN.json + index.json + preview.html
+excel-chart-echarts a.xlsx b.xlsx ./folder -o out/  # several files → out/&lt;file&gt;/...
+excel-chart-echarts book.xlsx --stdout            # print JSON
+excel-chart-echarts book.xlsx --show-missing-axes # show axes Excel hides</code></pre>
   <p><code>preview.html</code> renders every chart with a locally vendored <code>echarts.min.js</code> (no CDN).</p>
 
   <h2 id="mapping">Mapping</h2>
@@ -112,25 +112,25 @@ excel-echarts book.xlsx --show-missing-axes # show axes Excel hides</code></pre>
   <p><b>错误</b>：<code>{"ok":false,"error":{"code","message"}}</code>；400 空文件 · 413 文件过大 · 415 不是 xlsx · 422 解析失败 · 429 限流（带 Retry-After）· 504 超时。</p>
   <p><b><code>x-numFmt</code></b>：ECharts JSON 里不能放函数，所以 Excel 数字格式（如 <code>0%</code>、<code>#,##0.00</code>、日期）以钩子形式列出。引入 <a href="x2e-runtime.js">x2e-runtime.js</a> 后 <code>chart.setOption(X2E.prepare(option))</code> 即可，不需要就删掉该字段。<code>prepare()</code> 同时为带 <code>"x-renderItem"</code> 的 custom 系列（误差线、箱形图均值/离群点）挂上 <code>renderItem</code>。</p>
   <h2 id="sdk-zh">SDK — TypeScript / JavaScript（主实现）</h2>
-  <p>npm 包 <code>excel-echarts</code>：零运行时依赖，Node ≥18 与现代浏览器通用（自带 ZIP 读取与 XML 解析）。尚未发布到 npm，先装 tarball：</p>
-  <pre><code>npm i https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
-import { convertXlsx, prepare } from "excel-echarts";
+  <p>npm 包 <code>excel-chart-echarts</code>：零运行时依赖，Node ≥18 与现代浏览器通用（自带 ZIP 读取与 XML 解析）。尚未发布到 npm，先装 tarball：</p>
+  <pre><code>npm i https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel-chart-echarts-1.0.0.tgz
+import { convertXlsx, prepare } from "excel-chart-echarts";
 const { charts } = await convertXlsx("表格.xlsx");
 echarts.init(el).setOption(prepare(charts[0].option));</code></pre>
   <p>浏览器直接引用：<code>&lt;script src="https://jev.fishmaple.cn/excelECharts/excel-echarts.browser.js"&gt;</code> → <code>await ExcelECharts.convertXlsx(await file.arrayBuffer())</code>。</p>
   <h2 id="sdk-py-zh">SDK — Python</h2>
   <p>行为一致，输出 JSON 与 TS 版完全相同（有对比测试）。只用标准库，Python ≥3.8。</p>
-  <pre><code>pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
+  <pre><code>pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
 from xlsx2echarts import convert_xlsx
 res = convert_xlsx("表格.xlsx")
 for c in res["charts"]:
     print(c["sheet"], c["anchor"], c["title"], c["types"])</code></pre>
   <h2 id="cli-zh">命令行</h2>
-  <p>Node：<code>excel-echarts</code>（别名 <code>xlsx2echarts</code>）；Python：<code>xlsx2echarts</code> / <code>python -m xlsx2echarts</code>，参数与输出相同。</p>
-  <pre><code>excel-echarts 表格.xlsx -o out/            # 每个图表一个 JSON + index.json + preview.html
-excel-echarts a.xlsx b.xlsx ./目录 -o out/
-excel-echarts 表格.xlsx --stdout
-excel-echarts 表格.xlsx --show-missing-axes # 显示 Excel 会隐藏的坐标轴</code></pre>
+  <p>Node：<code>excel-chart-echarts</code>（别名 <code>xlsx2echarts</code>，旧名 <code>excel-echarts</code>）；Python：<code>xlsx2echarts</code> / <code>excel-chart-echarts</code> / <code>python -m xlsx2echarts</code>，参数与输出相同。</p>
+  <pre><code>excel-chart-echarts 表格.xlsx -o out/            # 每个图表一个 JSON + index.json + preview.html
+excel-chart-echarts a.xlsx b.xlsx ./目录 -o out/
+excel-chart-echarts 表格.xlsx --stdout
+excel-chart-echarts 表格.xlsx --show-missing-axes # 显示 Excel 会隐藏的坐标轴</code></pre>
   <p>映射表与已知限制见英文版 <a href="?lang=en#mapping">Mapping</a> 或项目 README（中文）。</p>
   </div>
   <footer class="foot" data-i18n-html="foot"></footer>

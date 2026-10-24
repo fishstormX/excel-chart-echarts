@@ -1,6 +1,6 @@
 # 更多样例
 
-左右对比：**Excel / WPS**（左）vs **excel-echarts**（右）。  
+左右对比：**Excel / WPS**（左）vs **excel-chart-echarts**（右）。  
 主 [README](../README.zh-CN.md) 只保留两个基础例；本页是其余图库。
 源工作簿在 [`examples/`](../examples/)（英文文件名）。
 
@@ -16,7 +16,7 @@
 
 柱 + 折线次坐标轴，Excel 里很常见。
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![openpyxl combo](screenshots/more/excel/openpyxl_combo.png) | ![openpyxl combo web](screenshots/more/web/openpyxl_combo.png) |
 
@@ -28,7 +28,7 @@
 
 自定义 / 百分比 / 标准差误差线，以及线性、指数、多项式、移动平均等趋势线。
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![errbars](screenshots/more/excel/errbars.png) | ![errbars web](screenshots/more/web/errbars.png) |
 
@@ -40,7 +40,7 @@
 
 嵌套分类标签与百分比堆积（XlsxWriter 边界样例）。
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![edge](screenshots/more/excel/edge_multilevel.png) | ![edge web](screenshots/more/web/edge_multilevel.png) |
 
@@ -52,7 +52,7 @@
 
 分类时间线，横向条形图。
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![gantt](screenshots/more/excel/gantt.png) | ![gantt web](screenshots/more/web/gantt.png) |
 
@@ -66,7 +66,7 @@
 
 源文件：[`examples/ms-pareto-cost.xlsx`](../examples/ms-pareto-cost.xlsx)
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![pareto](screenshots/more/excel/ms_pareto.png) | ![pareto web](screenshots/more/web/ms_pareto.png) |
 
@@ -74,7 +74,7 @@
 
 源文件：[`examples/ms-sales-funnel.xltx`](../examples/ms-sales-funnel.xltx)
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![funnel](screenshots/more/excel/ms_funnel.png) | ![funnel web](screenshots/more/web/ms_funnel.png) |
 
@@ -82,7 +82,7 @@
 
 源文件：[`examples/ms-regional-sales.xltx`](../examples/ms-regional-sales.xltx)
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![regional](screenshots/more/excel/ms_regional.png) | ![regional web](screenshots/more/web/ms_regional.png) |
 
@@ -92,7 +92,7 @@
 
 源文件：[`examples/office2016-chartex.xlsx`](../examples/office2016-chartex.xlsx)
 
-部件在 `xl/charts/chartExN.xml`。WPS 往往无法渲染；excel-echarts 映射到原生 ECharts 类型。
+部件在 `xl/charts/chartExN.xml`。WPS 往往无法渲染；excel-chart-echarts 映射到原生 ECharts 类型。
 
 | 瀑布图 | 矩形树图 | 样例合集 |
 |---|---|---|
