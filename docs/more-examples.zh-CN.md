@@ -2,6 +2,7 @@
 
 左右对比：**Excel / WPS**（左）vs **excel-echarts**（右）。  
 主 [README](../README.zh-CN.md) 只保留两个基础例；本页是其余图库。
+源工作簿在 [`examples/`](../examples/)（英文文件名）。
 
 在线演示：[English](https://jev.fishmaple.cn/excelECharts/?lang=en) · [中文](https://jev.fishmaple.cn/excelECharts/?lang=zh)
 
@@ -10,6 +11,8 @@
 ---
 
 ## 组合图 · 次坐标轴（openpyxl）
+
+源文件：[`examples/openpyxl-combo.xlsx`](../examples/openpyxl-combo.xlsx)
 
 柱 + 折线次坐标轴，Excel 里很常见。
 
@@ -21,6 +24,8 @@
 
 ## 误差线 · 趋势线
 
+源文件：[`examples/errorbars-trendlines.xlsx`](../examples/errorbars-trendlines.xlsx)
+
 自定义 / 百分比 / 标准差误差线，以及线性、指数、多项式、移动平均等趋势线。
 
 | Excel / WPS | excel-echarts |
@@ -31,6 +36,8 @@
 
 ## 多层分类 · 百分比堆积
 
+源文件：[`examples/multilevel-categories.xlsx`](../examples/multilevel-categories.xlsx)
+
 嵌套分类标签与百分比堆积（XlsxWriter 边界样例）。
 
 | Excel / WPS | excel-echarts |
@@ -40,6 +47,8 @@
 ---
 
 ## 甘特风格条形图
+
+源文件：[`examples/gantt-bars.xlsx`](../examples/gantt-bars.xlsx)
 
 分类时间线，横向条形图。
 
@@ -55,17 +64,23 @@
 
 ### 帕累托
 
+源文件：[`examples/ms-pareto-cost.xlsx`](../examples/ms-pareto-cost.xlsx)
+
 | Excel / WPS | excel-echarts |
 |---|---|
 | ![pareto](screenshots/more/excel/ms_pareto.png) | ![pareto web](screenshots/more/web/ms_pareto.png) |
 
 ### 漏斗
 
+源文件：[`examples/ms-sales-funnel.xltx`](../examples/ms-sales-funnel.xltx)
+
 | Excel / WPS | excel-echarts |
 |---|---|
 | ![funnel](screenshots/more/excel/ms_funnel.png) | ![funnel web](screenshots/more/web/ms_funnel.png) |
 
 ### 区域销售
+
+源文件：[`examples/ms-regional-sales.xltx`](../examples/ms-regional-sales.xltx)
 
 | Excel / WPS | excel-echarts |
 |---|---|
@@ -74,6 +89,8 @@
 ---
 
 ## Office 2016 chartEx（仅 ECharts 侧）
+
+源文件：[`examples/office2016-chartex.xlsx`](../examples/office2016-chartex.xlsx)
 
 部件在 `xl/charts/chartExN.xml`。WPS 往往无法渲染；excel-echarts 映射到原生 ECharts 类型。
 
@@ -85,6 +102,8 @@
 
 ## 填充地图
 
+源文件：[`examples/filled-maps.xlsx`](../examples/filled-maps.xlsx)
+
 区域地图 → ECharts `map` + `visualMap`（内置世界 / 中国省级，或自定义 GeoJSON）。
 
 ![world map](screenshots/more/web/maps_world.png)
@@ -92,6 +111,8 @@
 ---
 
 ## 整表合成图（参考）
+
+源文件：[`openpyxl-combo.xlsx`](../examples/openpyxl-combo.xlsx)、[`combo-secondary-axis.xlsx`](../examples/combo-secondary-axis.xlsx)
 
 | openpyxl 整表（Excel） | xlsxwriter 整表（Excel） | xlsxwriter 样例（web） |
 |---|---|---|

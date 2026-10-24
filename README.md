@@ -85,11 +85,15 @@ Left = chart as opened in a spreadsheet (WPS Spreadsheets, English UI). Right = 
 
 ### Line chart
 
+Source: [`examples/line-chart.xlsx`](examples/line-chart.xlsx)
+
 | Excel / WPS | excel-echarts |
 |---|---|
 | ![line](docs/screenshots/excel/user3_line.png) | ![line web](docs/screenshots/web/user3_line.png) |
 
 ### Combo · secondary axis
+
+Source: [`examples/combo-secondary-axis.xlsx`](examples/combo-secondary-axis.xlsx)
 
 | Excel / WPS | excel-echarts |
 |---|---|
@@ -180,6 +184,7 @@ Env (defaults): `X2E_RATE_LIMITS=3/10s,20/60s`, `X2E_MAX_MB=10`, `X2E_MAX_UNZIPP
 | [CI/CD](https://github.com/fishstormX/excel2Echarts/actions/workflows/ci.yml) | Build + parity on `main` / PRs; pack npm/wheel on `v*` tags (GitHub Release) |
 | [GitHub Releases](https://github.com/fishstormX/excel2Echarts/releases) | Packaged `.tgz` (npm) + `.whl` (pip) — built by Actions on `v*` tags |
 | [Architecture](docs/architecture.md) | Pipeline, OOXML mapping, TS/Python parity, hooks |
+| [examples/](examples/) | Sample `.xlsx` / `.xltx` workbooks used in the gallery |
 | [More examples](docs/more-examples.md) | Extended Excel vs ECharts gallery |
 | [中文 README](README.zh-CN.md) | Same page in Chinese |
 
