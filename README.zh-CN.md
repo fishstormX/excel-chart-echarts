@@ -9,6 +9,7 @@
 开源 DrawingML → ECharts 转换器，自带 **CLI**、**SDK**、**REST API**；网页演示默认在浏览器本地完成，不必上传文件。
 
 [![npm](https://img.shields.io/npm/v/excel-chart-echarts.svg)](https://www.npmjs.com/package/excel-chart-echarts)
+[![PyPI](https://img.shields.io/pypi/v/excel-chart-echarts.svg)](https://pypi.org/project/excel-chart-echarts/)
 [![version](https://img.shields.io/badge/version-1.0.0-3d8bfd)](ts/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](ts/package.json)
@@ -31,8 +32,8 @@ npm i -g excel-chart-echarts
 excel-chart-echarts book.xlsx -j -o out.json          # 只要一份 JSON
 excel-chart-echarts book.xlsx -o out/                 # 全量导出 + preview.html
 
-# Python（PyPI 上线前仍用 GitHub Release）
-pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
+# Python（PyPI）
+pip install excel-chart-echarts
 xlsx2echarts book.xlsx -j -o out.json
 xlsx2echarts book.xlsx -o out/
 ```
@@ -125,8 +126,7 @@ curl -s -F file=@book.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert
 
 ```bash
 npm i excel-chart-echarts
-# Python 在 PyPI 上线前：
-pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
+pip install excel-chart-echarts
 ```
 
 从源码：
@@ -165,8 +165,9 @@ uvicorn app.main:app --port 8765
 
 | 文档 | 内容 |
 |---|---|
-| [CI/CD](https://github.com/fishstormX/excel-chart-echarts/actions/workflows/ci.yml) | `main` / PR 测试；打 `v*` 标签时发 GitHub Release + `npm stage publish` |
-| [npm](https://www.npmjs.com/package/excel-chart-echarts) | `npm i excel-chart-echarts`（CI 暂存；需 2FA 批准上线） |
+| [CI/CD](https://github.com/fishstormX/excel-chart-echarts/actions/workflows/ci.yml) | `main` / PR 测试；`v*` 标签：GitHub Release + npm stage + PyPI |
+| [npm](https://www.npmjs.com/package/excel-chart-echarts) | `npm i excel-chart-echarts`（CI 暂存；需浏览器批准上线） |
+| [PyPI](https://pypi.org/project/excel-chart-echarts/) | `pip install excel-chart-echarts` |
 | [GitHub Releases](https://github.com/fishstormX/excel-chart-echarts/releases) | `v*` 标签附带 `.tgz` + `.whl` |
 | [架构说明](docs/architecture.zh-CN.md) | 流水线、OOXML 映射、TS/Python 对等 |
 | [examples/](examples/) | 图库用到的示例 `.xlsx` / `.xltx` |
