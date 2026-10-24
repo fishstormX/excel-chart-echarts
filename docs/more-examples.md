@@ -2,6 +2,7 @@
 
 Side-by-side fidelity shots: **Excel / WPS** (left) vs **excel-echarts** (right).  
 The main [README](../README.md) only shows two basics; this page is the rest of the gallery.
+Workbook sources live in [`examples/`](../examples/) (English filenames).
 
 Live demo: [English](https://jev.fishmaple.cn/excelECharts/?lang=en) · [中文](https://jev.fishmaple.cn/excelECharts/?lang=zh)
 
@@ -10,6 +11,8 @@ Live demo: [English](https://jev.fishmaple.cn/excelECharts/?lang=en) · [中文]
 ---
 
 ## Combo · secondary axis (openpyxl)
+
+Source: [`examples/openpyxl-combo.xlsx`](../examples/openpyxl-combo.xlsx)
 
 Bar + line on a secondary value axis — a common Excel pattern.
 
@@ -21,6 +24,8 @@ Bar + line on a secondary value axis — a common Excel pattern.
 
 ## Error bars · trendlines
 
+Source: [`examples/errorbars-trendlines.xlsx`](../examples/errorbars-trendlines.xlsx)
+
 Custom / percentage / stdDev error bars and several trendline kinds (linear, exp, poly, moving average).
 
 | Excel / WPS | excel-echarts |
@@ -31,6 +36,8 @@ Custom / percentage / stdDev error bars and several trendline kinds (linear, exp
 
 ## Multi-level categories · 100% stacked
 
+Source: [`examples/multilevel-categories.xlsx`](../examples/multilevel-categories.xlsx)
+
 Nested category labels and percent-stacked series (edge cases from XlsxWriter).
 
 | Excel / WPS | excel-echarts |
@@ -40,6 +47,8 @@ Nested category labels and percent-stacked series (edge cases from XlsxWriter).
 ---
 
 ## Gantt-style bars
+
+Source: [`examples/gantt-bars.xlsx`](../examples/gantt-bars.xlsx)
 
 Category timeline rendered as a horizontal bar chart.
 
@@ -55,17 +64,23 @@ Pareto, funnel, and regional sales samples from Office-style templates.
 
 ### Pareto
 
+Source: [`examples/ms-pareto-cost.xlsx`](../examples/ms-pareto-cost.xlsx)
+
 | Excel / WPS | excel-echarts |
 |---|---|
 | ![pareto](screenshots/more/excel/ms_pareto.png) | ![pareto web](screenshots/more/web/ms_pareto.png) |
 
 ### Funnel
 
+Source: [`examples/ms-sales-funnel.xltx`](../examples/ms-sales-funnel.xltx)
+
 | Excel / WPS | excel-echarts |
 |---|---|
 | ![funnel](screenshots/more/excel/ms_funnel.png) | ![funnel web](screenshots/more/web/ms_funnel.png) |
 
 ### Regional sales
+
+Source: [`examples/ms-regional-sales.xltx`](../examples/ms-regional-sales.xltx)
 
 | Excel / WPS | excel-echarts |
 |---|---|
@@ -74,6 +89,8 @@ Pareto, funnel, and regional sales samples from Office-style templates.
 ---
 
 ## Office 2016 chartEx (ECharts side)
+
+Source: [`examples/office2016-chartex.xlsx`](../examples/office2016-chartex.xlsx)
 
 These live in `xl/charts/chartExN.xml`. WPS often cannot render them; excel-echarts maps them to native ECharts types.
 
@@ -85,6 +102,8 @@ These live in `xl/charts/chartExN.xml`. WPS often cannot render them; excel-echa
 
 ## Filled map
 
+Source: [`examples/filled-maps.xlsx`](../examples/filled-maps.xlsx)
+
 World region map → ECharts `map` + `visualMap` (built-in world / China province GeoJSON, or your own).
 
 ![world map](screenshots/more/web/maps_world.png)
@@ -92,6 +111,8 @@ World region map → ECharts `map` + `visualMap` (built-in world / China provinc
 ---
 
 ## Full workbook sheets (optional reference)
+
+Sources: [`openpyxl-combo.xlsx`](../examples/openpyxl-combo.xlsx), [`combo-secondary-axis.xlsx`](../examples/combo-secondary-axis.xlsx)
 
 Whole-sheet composites used while building the gallery:
 

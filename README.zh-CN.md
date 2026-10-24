@@ -84,11 +84,15 @@ curl -s -F file=@book.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert
 
 ### 折线图
 
+源文件：[`examples/line-chart.xlsx`](examples/line-chart.xlsx)
+
 | Excel / WPS | excel-echarts |
 |---|---|
 | ![line](docs/screenshots/excel/user3_line.png) | ![line web](docs/screenshots/web/user3_line.png) |
 
 ### 组合图 · 次坐标轴
+
+源文件：[`examples/combo-secondary-axis.xlsx`](examples/combo-secondary-axis.xlsx)
 
 | Excel / WPS | excel-echarts |
 |---|---|
@@ -163,6 +167,7 @@ uvicorn app.main:app --port 8765
 | [CI/CD](https://github.com/fishstormX/excel2Echarts/actions/workflows/ci.yml) | `main` / PR 自动构建与对等测试；打 `v*` 标签时打包 npm/wheel 并发 GitHub Release |
 | [GitHub Releases](https://github.com/fishstormX/excel2Echarts/releases) | 打包好的 `.tgz`（npm）+ `.whl`（pip），打 `v*` 标签时由 Actions 自动构建 |
 | [架构说明](docs/architecture.zh-CN.md) | 流水线、OOXML 映射、TS/Python 对等 |
+| [examples/](examples/) | 图库用到的示例 `.xlsx` / `.xltx` |
 | [更多样例](docs/more-examples.zh-CN.md) | 扩展对比图库 |
 | [English README](README.md) | 英文主页 |
 

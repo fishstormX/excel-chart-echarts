@@ -10,6 +10,8 @@ dist/*.tar.gz
 *.xlsx
 *.xlsm
 *.xltx
+!examples/
+!examples/**
 fixtures/
 samples/
 screenshots/
