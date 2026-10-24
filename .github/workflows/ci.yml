@@ -145,10 +145,20 @@ jobs:
           fi
           printf '//registry.npmjs.org/:_authToken=%s\n' "$NODE_AUTH_TOKEN" > .npmrc
           # Stage-only granular tokens cannot npm publish directly.
-          # Maintainer must later: npm stage approve <id> --otp <code>
-          npm stage publish --access public
+          # Maintainer must later approve the staged package in the browser / CLI.
+          set +e
+          OUT=$(npm stage publish --access public 2>&1)
+          CODE=$?
+          set -e
+          echo "$OUT"
           rm -f .npmrc
-          echo "Staged to npm. Approve with 2FA: npm stage list && npm stage approve <id> --otp ******"
+          if [ $CODE -eq 0 ]; then
+            echo "Staged to npm. Approve: npm stage list && npm stage approve <id>"
+          elif echo "$OUT" | grep -qiE 'E409|previously published|already staged|Cannot stage'; then
+            echo "npm stage skipped — this version is already staged or published."
+          else
+            exit $CODE
+          fi
 
 
       - name: Publish to PyPI
@@ -163,7 +173,18 @@ jobs:
             exit 1
           fi
           python -m pip install -U twine
-          twine upload dist/*
+          set +e
+          OUT=$(twine upload dist/* 2>&1)
+          CODE=$?
+          set -e
+          echo "$OUT"
+          if [ $CODE -eq 0 ]; then
+            echo "Uploaded to PyPI."
+          elif echo "$OUT" | grep -qiE 'File already exists|already been uploaded'; then
+            echo "PyPI upload skipped — this version is already on PyPI."
+          else
+            exit $CODE
+          fi
 
       - name: Create GitHub Release
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
