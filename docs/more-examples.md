@@ -1,6 +1,6 @@
 # More examples
 
-Side-by-side fidelity shots: **Excel / WPS** (left) vs **excel-echarts** (right).  
+Side-by-side fidelity shots: **Excel / WPS** (left) vs **excel-chart-echarts** (right).  
 The main [README](../README.md) only shows two basics; this page is the rest of the gallery.
 Workbook sources live in [`examples/`](../examples/) (English filenames).
 
@@ -16,7 +16,7 @@ Source: [`examples/openpyxl-combo.xlsx`](../examples/openpyxl-combo.xlsx)
 
 Bar + line on a secondary value axis — a common Excel pattern.
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![openpyxl combo](screenshots/more/excel/openpyxl_combo.png) | ![openpyxl combo web](screenshots/more/web/openpyxl_combo.png) |
 
@@ -28,7 +28,7 @@ Source: [`examples/errorbars-trendlines.xlsx`](../examples/errorbars-trendlines.
 
 Custom / percentage / stdDev error bars and several trendline kinds (linear, exp, poly, moving average).
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![errbars](screenshots/more/excel/errbars.png) | ![errbars web](screenshots/more/web/errbars.png) |
 
@@ -40,7 +40,7 @@ Source: [`examples/multilevel-categories.xlsx`](../examples/multilevel-categorie
 
 Nested category labels and percent-stacked series (edge cases from XlsxWriter).
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![edge](screenshots/more/excel/edge_multilevel.png) | ![edge web](screenshots/more/web/edge_multilevel.png) |
 
@@ -52,7 +52,7 @@ Source: [`examples/gantt-bars.xlsx`](../examples/gantt-bars.xlsx)
 
 Category timeline rendered as a horizontal bar chart.
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![gantt](screenshots/more/excel/gantt.png) | ![gantt web](screenshots/more/web/gantt.png) |
 
@@ -66,7 +66,7 @@ Pareto, funnel, and regional sales samples from Office-style templates.
 
 Source: [`examples/ms-pareto-cost.xlsx`](../examples/ms-pareto-cost.xlsx)
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![pareto](screenshots/more/excel/ms_pareto.png) | ![pareto web](screenshots/more/web/ms_pareto.png) |
 
@@ -74,7 +74,7 @@ Source: [`examples/ms-pareto-cost.xlsx`](../examples/ms-pareto-cost.xlsx)
 
 Source: [`examples/ms-sales-funnel.xltx`](../examples/ms-sales-funnel.xltx)
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![funnel](screenshots/more/excel/ms_funnel.png) | ![funnel web](screenshots/more/web/ms_funnel.png) |
 
@@ -82,7 +82,7 @@ Source: [`examples/ms-sales-funnel.xltx`](../examples/ms-sales-funnel.xltx)
 
 Source: [`examples/ms-regional-sales.xltx`](../examples/ms-regional-sales.xltx)
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![regional](screenshots/more/excel/ms_regional.png) | ![regional web](screenshots/more/web/ms_regional.png) |
 
@@ -92,7 +92,7 @@ Source: [`examples/ms-regional-sales.xltx`](../examples/ms-regional-sales.xltx)
 
 Source: [`examples/office2016-chartex.xlsx`](../examples/office2016-chartex.xlsx)
 
-These live in `xl/charts/chartExN.xml`. WPS often cannot render them; excel-echarts maps them to native ECharts types.
+These live in `xl/charts/chartExN.xml`. WPS often cannot render them; excel-chart-echarts maps them to native ECharts types.
 
 | Waterfall | Treemap | Sample pack |
 |---|---|---|

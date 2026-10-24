@@ -2,9 +2,9 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-# excel-echarts
+# excel-chart-echarts
 
-**Convert native Excel charts into Apache ECharts options — TypeScript & Python, zero Excel runtime deps, Node + browser.**
+**Converts embedded native Excel charts (DrawingML) into Apache ECharts options — not arbitrary sheet data → charts. TypeScript & Python, zero Excel runtime deps, Node + browser.**
 
 Open-source DrawingML → ECharts converter with **CLI**, **SDK**, and **REST API** built in, plus a web demo that converts locally by default.
 
@@ -26,12 +26,12 @@ Three equal ways into the same converter. Pick one:
 
 ```bash
 # Node (from GitHub Release)
-npm i -g https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
-excel-echarts book.xlsx -j -o out.json          # one-shot JSON
-excel-echarts book.xlsx -o out/                 # full export + preview.html
+npm i -g https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel-chart-echarts-1.0.0.tgz
+excel-chart-echarts book.xlsx -j -o out.json          # one-shot JSON
+excel-chart-echarts book.xlsx -o out/                 # full export + preview.html
 
 # Python (from GitHub Release)
-pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
+pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
 xlsx2echarts book.xlsx -j -o out.json
 xlsx2echarts book.xlsx -o out/
 ```
@@ -41,7 +41,7 @@ xlsx2echarts book.xlsx -o out/
 ### SDK — TypeScript & Python
 
 ```ts
-import { convertXlsx, prepare } from "excel-echarts";
+import { convertXlsx, prepare } from "excel-chart-echarts";
 const { charts } = await convertXlsx("book.xlsx");
 echarts.init(el).setOption(prepare(charts[0].option));
 ```
@@ -81,13 +81,13 @@ Try built-in samples on the page (*Try a sample*, *Office 2016 charts*, *Error b
 
 ## Results
 
-Left = chart as opened in a spreadsheet (WPS Spreadsheets, English UI). Right = same workbook through excel-echarts.
+Left = chart as opened in a spreadsheet (WPS Spreadsheets, English UI). Right = same workbook through excel-chart-echarts.
 
 ### Line chart
 
 Source: [`examples/line-chart.xlsx`](examples/line-chart.xlsx)
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![line](docs/screenshots/excel/user3_line.png) | ![line web](docs/screenshots/web/user3_line.png) |
 
@@ -95,7 +95,7 @@ Source: [`examples/line-chart.xlsx`](examples/line-chart.xlsx)
 
 Source: [`examples/combo-secondary-axis.xlsx`](examples/combo-secondary-axis.xlsx)
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![combo](docs/screenshots/excel/xlsxwriter_combo.png) | ![combo web](docs/screenshots/web/xlsxwriter_combo.png) |
 
@@ -125,29 +125,29 @@ How it works internally: **[docs/architecture.md](docs/architecture.md)**.
 
 ```bash
 # GitHub Release v1.0.0
-npm i https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
-pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
+npm i https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel-chart-echarts-1.0.0.tgz
+pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
 ```
 
 From a clone:
 
 ```bash
-git clone https://github.com/fishstormX/excel2Echarts.git
-cd excel2Echarts/ts && npm i && npm run build
+git clone https://github.com/fishstormX/excel-chart-echarts.git
+cd excel-chart-echarts/ts && npm i && npm run build
 cd ../ && pip install -e .
 ```
 
 ### Convert one file
 
 ```bash
-excel-echarts book.xlsx -j -o out.json   # JSON only
-excel-echarts book.xlsx -o out/          # full export; open out/preview.html
+excel-chart-echarts book.xlsx -j -o out.json   # JSON only
+excel-chart-echarts book.xlsx -o out/          # full export; open out/preview.html
 ```
 
 ### Library
 
 ```ts
-import { convertXlsx, prepare } from "excel-echarts";
+import { convertXlsx, prepare } from "excel-chart-echarts";
 const { charts, warnings } = await convertXlsx(file); // path | Uint8Array | Blob
 for (const c of charts) {
   echarts.init(document.getElementById(c.name)!).setOption(prepare(c.option));
@@ -181,8 +181,8 @@ Env (defaults): `X2E_RATE_LIMITS=3/10s,20/60s`, `X2E_MAX_MB=10`, `X2E_MAX_UNZIPP
 
 | Doc | Contents |
 |---|---|
-| [CI/CD](https://github.com/fishstormX/excel2Echarts/actions/workflows/ci.yml) | Build + parity on `main` / PRs; pack npm/wheel on `v*` tags (GitHub Release) |
-| [GitHub Releases](https://github.com/fishstormX/excel2Echarts/releases) | Packaged `.tgz` (npm) + `.whl` (pip) — built by Actions on `v*` tags |
+| [CI/CD](https://github.com/fishstormX/excel-chart-echarts/actions/workflows/ci.yml) | Build + parity on `main` / PRs; pack npm/wheel on `v*` tags (GitHub Release) |
+| [GitHub Releases](https://github.com/fishstormX/excel-chart-echarts/releases) | Packaged `.tgz` (npm) + `.whl` (pip) — built by Actions on `v*` tags |
 | [Architecture](docs/architecture.md) | Pipeline, OOXML mapping, TS/Python parity, hooks |
 | [examples/](examples/) | Sample `.xlsx` / `.xltx` workbooks used in the gallery |
 | [More examples](docs/more-examples.md) | Extended Excel vs ECharts gallery |

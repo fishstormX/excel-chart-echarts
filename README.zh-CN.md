@@ -2,9 +2,9 @@
 
 [English](README.md) · **简体中文**
 
-# excel-echarts
+# excel-chart-echarts
 
-**把 Excel 原生图表转成 Apache ECharts option — TypeScript & Python，运行时零 Excel 依赖，Node + 浏览器。**
+**把工作簿里已嵌入的 Excel 原生图表（DrawingML）转成 Apache ECharts option — 不是把任意表格数据画成图。TypeScript & Python，运行时零 Excel 依赖，Node + 浏览器。**
 
 开源 DrawingML → ECharts 转换器，自带 **CLI**、**SDK**、**REST API**；网页演示默认在浏览器本地完成，不必上传文件。
 
@@ -26,12 +26,12 @@
 
 ```bash
 # Node（GitHub Release）
-npm i -g https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
-excel-echarts book.xlsx -j -o out.json          # 只要一份 JSON
-excel-echarts book.xlsx -o out/                 # 全量导出 + preview.html
+npm i -g https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel-chart-echarts-1.0.0.tgz
+excel-chart-echarts book.xlsx -j -o out.json          # 只要一份 JSON
+excel-chart-echarts book.xlsx -o out/                 # 全量导出 + preview.html
 
 # Python（GitHub Release）
-pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
+pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
 xlsx2echarts book.xlsx -j -o out.json
 xlsx2echarts book.xlsx -o out/
 ```
@@ -41,7 +41,7 @@ xlsx2echarts book.xlsx -o out/
 ### SDK — TypeScript & Python
 
 ```ts
-import { convertXlsx, prepare } from "excel-echarts";
+import { convertXlsx, prepare } from "excel-chart-echarts";
 const { charts } = await convertXlsx("book.xlsx");
 echarts.init(el).setOption(prepare(charts[0].option));
 ```
@@ -80,13 +80,13 @@ curl -s -F file=@book.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert
 
 ## 效果
 
-左 = 表格软件中的图（WPS 表格，英文界面）。右 = excel-echarts 转换结果。
+左 = 表格软件中的图（WPS 表格，英文界面）。右 = excel-chart-echarts 转换结果。
 
 ### 折线图
 
 源文件：[`examples/line-chart.xlsx`](examples/line-chart.xlsx)
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![line](docs/screenshots/excel/user3_line.png) | ![line web](docs/screenshots/web/user3_line.png) |
 
@@ -94,7 +94,7 @@ curl -s -F file=@book.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert
 
 源文件：[`examples/combo-secondary-axis.xlsx`](examples/combo-secondary-axis.xlsx)
 
-| Excel / WPS | excel-echarts |
+| Excel / WPS | excel-chart-echarts |
 |---|---|
 | ![combo](docs/screenshots/excel/xlsxwriter_combo.png) | ![combo web](docs/screenshots/web/xlsxwriter_combo.png) |
 
@@ -124,23 +124,23 @@ curl -s -F file=@book.xlsx https://jev.fishmaple.cn/excelECharts/api/v1/convert
 
 ```bash
 # GitHub Release v1.0.0
-npm i https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel-echarts-1.0.0.tgz
-pip install https://github.com/fishstormX/excel2Echarts/releases/download/v1.0.0/excel_echarts-1.0.0-py3-none-any.whl
+npm i https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel-chart-echarts-1.0.0.tgz
+pip install https://github.com/fishstormX/excel-chart-echarts/releases/download/v1.0.0/excel_chart_echarts-1.0.0-py3-none-any.whl
 ```
 
 从源码：
 
 ```bash
-git clone https://github.com/fishstormX/excel2Echarts.git
-cd excel2Echarts/ts && npm i && npm run build
+git clone https://github.com/fishstormX/excel-chart-echarts.git
+cd excel-chart-echarts/ts && npm i && npm run build
 cd ../ && pip install -e .
 ```
 
 ### 转换
 
 ```bash
-excel-echarts book.xlsx -j -o out.json   # 只要 JSON
-excel-echarts book.xlsx -o out/          # 全量导出
+excel-chart-echarts book.xlsx -j -o out.json   # 只要 JSON
+excel-chart-echarts book.xlsx -o out/          # 全量导出
 ```
 
 ### 本地 API / 网页
@@ -164,8 +164,8 @@ uvicorn app.main:app --port 8765
 
 | 文档 | 内容 |
 |---|---|
-| [CI/CD](https://github.com/fishstormX/excel2Echarts/actions/workflows/ci.yml) | `main` / PR 自动构建与对等测试；打 `v*` 标签时打包 npm/wheel 并发 GitHub Release |
-| [GitHub Releases](https://github.com/fishstormX/excel2Echarts/releases) | 打包好的 `.tgz`（npm）+ `.whl`（pip），打 `v*` 标签时由 Actions 自动构建 |
+| [CI/CD](https://github.com/fishstormX/excel-chart-echarts/actions/workflows/ci.yml) | `main` / PR 自动构建与对等测试；打 `v*` 标签时打包 npm/wheel 并发 GitHub Release |
+| [GitHub Releases](https://github.com/fishstormX/excel-chart-echarts/releases) | 打包好的 `.tgz`（npm）+ `.whl`（pip），打 `v*` 标签时由 Actions 自动构建 |
 | [架构说明](docs/architecture.zh-CN.md) | 流水线、OOXML 映射、TS/Python 对等 |
 | [examples/](examples/) | 图库用到的示例 `.xlsx` / `.xltx` |
 | [更多样例](docs/more-examples.zh-CN.md) | 扩展对比图库 |

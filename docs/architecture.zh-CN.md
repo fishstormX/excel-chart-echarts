@@ -1,6 +1,6 @@
 # 架构说明
 
-excel-echarts 如何把 **Excel 原生图表** 转成 ECharts option：不用 Excel 库、不做浏览器自动化，TypeScript / Python 输出 **逐字段一致**。
+excel-chart-echarts 如何把 **Excel 原生图表** 转成 ECharts option：不用 Excel 库、不做浏览器自动化，TypeScript / Python 输出 **逐字段一致**。
 
 English: [Architecture](architecture.md)
 
@@ -79,7 +79,7 @@ openpyxl、pandas 等常不写 cache：解析引用 → 读单元格 → 必要�
 
 | 层 | TypeScript | Python |
 |---|---|---|
-| 包名 | `excel-echarts` | `excel-echarts`（导入 `xlsx2echarts`） |
+| 包名 | `excel-chart-echarts` | `excel-chart-echarts`（导入名 `xlsx2echarts`） |
 | ZIP / XML | `ts/src/zip.ts`、`xml.ts` | `zipfile`、`xml.etree` |
 | 转换 | `converter.ts` + `chartex.ts` | `converter.py` + `chartex.py` |
 | 校验 | `tests/parity.py` 逐字段比对（含 `excelCompat`） |

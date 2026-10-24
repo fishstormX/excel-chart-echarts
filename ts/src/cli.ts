@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-/** excel-echarts CLI: excel-echarts book.xlsx -o outdir  (also .xlsm/.xltx/.xltm; same layout as Python CLI)
+/** excel-chart-echarts CLI: excel-chart-echarts book.xlsx -o outdir  (also .xlsm/.xltx/.xltm; same layout as Python CLI)
  *
  * Quick JSON only:
- *   excel-echarts book.xlsx -j
- *   excel-echarts book.xlsx -j -o out.json
+ *   excel-chart-echarts book.xlsx -j
+ *   excel-chart-echarts book.xlsx -j -o out.json
  */
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
@@ -45,9 +45,9 @@ async function main(argv: string[]) {
     else if (x === "--show-missing-axes") a.compat = false;
     else if (x === "--stdout") { a.stdout = true; a.json = true; }
     else if (x === "--geojson") a.geojson = argv[++i];
-    else if (x === "-V" || x === "--version") { console.log(`excel-echarts ${VERSION}`); return 0; }
+    else if (x === "-V" || x === "--version") { console.log(`excel-chart-echarts ${VERSION}`); return 0; }
     else if (x === "-h" || x === "--help") {
-      console.log(`usage: excel-echarts [-j] [-o OUT] [--no-preview] [--show-missing-axes] [--geojson FILE] inputs...
+      console.log(`usage: excel-chart-echarts [-j] [-o OUT] [--no-preview] [--show-missing-axes] [--geojson FILE] inputs...
 
 Convert native Excel charts in .xlsx/.xlsm/.xltx/.xltm to ECharts option JSON
 
@@ -56,13 +56,13 @@ Convert native Excel charts in .xlsx/.xlsm/.xltx/.xltm to ECharts option JSON
   --no-preview        skip preview.html (full export only)
 
 examples:
-  excel-echarts book.xlsx -j
-  excel-echarts book.xlsx -j -o out.json
-  excel-echarts book.xlsx -o out/`);
+  excel-chart-echarts book.xlsx -j
+  excel-chart-echarts book.xlsx -j -o out.json
+  excel-chart-echarts book.xlsx -o out/`);
       return 0;
     } else a.inputs.push(x);
   }
-  if (!a.inputs.length) { console.error("excel-echarts: error: the following arguments are required: inputs"); return 2; }
+  if (!a.inputs.length) { console.error("excel-chart-echarts: error: the following arguments are required: inputs"); return 2; }
   const files: string[] = [];
   for (const p of a.inputs) {
     const st = await fs.stat(p).catch(() => null);

@@ -1,6 +1,6 @@
 # Architecture
 
-How excel-echarts turns **native Excel charts** into ECharts options — without Excel libraries, without a browser automation step, and with **bit-identical** TypeScript / Python output.
+How excel-chart-echarts turns **native Excel charts** into ECharts options — without Excel libraries, without a browser automation step, and with **bit-identical** TypeScript / Python output.
 
 Chinese: [架构说明](architecture.zh-CN.md)
 
@@ -99,10 +99,10 @@ Unsupported formulas → blank point + `warnings`.
 
 | Layer | TypeScript | Python |
 |---|---|---|
-| Package | `excel-echarts` (npm) | `excel-echarts` (PyPI), import `xlsx2echarts` |
+| Package | `excel-chart-echarts` (npm) | `excel-chart-echarts` (PyPI), import `xlsx2echarts` |
 | ZIP / XML | `ts/src/zip.ts`, `xml.ts` | `zipfile`, `xml.etree` |
 | Convert | `ts/src/converter.ts` + `chartex.ts` | `xlsx2echarts/converter.py` + `chartex.py` |
-| CLI | `excel-echarts` / `xlsx2echarts` | same script names |
+| CLI | `excel-chart-echarts` / `xlsx2echarts` (alias `excel-echarts`) | same script names |
 | Check | `tests/parity.py` diffs JSON field-by-field (incl. `excelCompat` modes) |
 
 Both sides intentionally avoid Excel engines (no openpyxl / ExcelJS at **runtime**). Those libraries appear only in **test fixture generators**.
