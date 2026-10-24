@@ -1,7 +1,7 @@
 # More examples
 
 Side-by-side fidelity shots: **Excel / WPS** (left) vs **excel-chart-echarts** (right).  
-The main [README](../README.md) only shows two basics; this page is the rest of the gallery.
+The main [README](https://github.com/fishstormX/excel-chart-echarts/blob/main/README.md) only shows two basics; this page is the rest of the gallery.
 Workbook sources live in [`examples/`](../examples/) (English filenames).
 
 Live demo: [English](https://jev.fishmaple.cn/excelECharts/?lang=en) · [中文](https://jev.fishmaple.cn/excelECharts/?lang=zh)

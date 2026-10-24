@@ -122,4 +122,4 @@ tests/            fixtures 生成 + parity + 截图
 docs/             架构、更多样例、截图
 ```
 
-另见：[更多样例](more-examples.zh-CN.md) · [README](../README.zh-CN.md)
+另见：[更多样例](more-examples.zh-CN.md) · [README](https://github.com/fishstormX/excel-chart-echarts/blob/main/README.zh-CN.md)
