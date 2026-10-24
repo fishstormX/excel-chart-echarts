@@ -10,7 +10,7 @@
 
 [![npm](https://img.shields.io/npm/v/excel-chart-echarts.svg)](https://www.npmjs.com/package/excel-chart-echarts)
 [![PyPI](https://img.shields.io/pypi/v/excel-chart-echarts.svg)](https://pypi.org/project/excel-chart-echarts/)
-[![version](https://img.shields.io/badge/version-1.0.1-3d8bfd)](ts/package.json)
+[![version](https://img.shields.io/badge/version-1.0.2-3d8bfd)](ts/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](ts/package.json)
 [![python](https://img.shields.io/badge/python-3.8%2B-blue?logo=python&logoColor=white)](pyproject.toml)
